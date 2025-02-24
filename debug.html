@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <link href="main.css" rel="stylesheet" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/audiojs/1.0.1/audio.min.js" integrity="sha512-n1UxE3D0oAro7q72ZVxyGIUqB3DBt+cYVNujO4yFXm74LVPkzUUgPyP5UGEkDEDAMGLNkDo4BnIMrE/M8b5lCw==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: #D9E8EF;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 250px;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding-left: 2%;
+        }
+        .upload-files {
+            background: #D9E8EF; /* Green background color */
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+
+        .upload-files h2 {
+            color: #000; /* Black text color */
+        }
+
+        .upload-files form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .upload-files input {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            border: 1px solid #CCC;
+            border-radius: 5px;
+        }
+
+        .upload-files button {
+            background: #000; /* Black button background color */
+            color: #fff; /* White text color */
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            height: 50px;
+        }
+
+        .upload-files button:hover {
+            background: #333; /* Darker color on hover */
+        }
+
+        .file-upload {
+            background: #FFFFFF;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 30%;
+            margin-right: 2%;
+        }
+
+        .file-list {
+            background: #FFFFFF;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 30%;
+            margin-right: 2%;
+        }
+
+        .file-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .file-list li {
+            margin-bottom: 1rem;
+        }
+
+        .file-list button {
+            background: #000;
+            color: #fff;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .file-list button:hover {
+            background: #333;
+        }
+
+        .tts-generation {
+            background: #FFFFFF;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 30%;
+        }
+
+        .footer {
+            background: #232323;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .footer-nav {
+            margin-top: 1rem;
+        }
+
+        .preview-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 60%;
+            margin: 20px auto;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+
+        .generate-tts-button {
+            background: #3498db; /* Blue button background color */
+            color: #fff; /* White text color */
+        }
+
+        .generate-tts-button:hover {
+            background: #2980b9; /* Darker blue color on hover */
+        }
+
+        .audiojs {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .audiojs .scrubber {
+            display: flex;
+            align-items: center;
+        }
+
+        .audiojs .time {
+            margin-left: 10px;
+        }
+    </style>
+    <title>TTS Generator</title>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src=".\images\LOGO.png" alt="ByteNews Logo" class="logo">
+        </header>
+
+        <main class="main-content"> <!-- Added closing tag for main-content div -->
+
+            <section class="file-upload">
+                <h2>Upload a File</h2>
+                <form action="/debugMode" method="POST" enctype="multipart/form-data" action="{{ url_for('upload_txt') }}">
+                    <input type="file" name="file">
+                    <input type="submit" value="Upload">
+                </form>
+            </section>
+
+            <section class="file-list">
+                <h2>File List</h2>
+                <ul>
+                    <!-- Dynamically generate file list items -->
+                    {% for file in file_list %}
+                    <li>
+                        <button class="file-list-entry" data-filename="{{ file }}" data-filecontent="{{ file_content[file] }}">{{ file }}</button>
+
+                    </li>
+                    {% endfor %}
+                    <!-- Repeat for other files -->
+                </ul>
+            </section>
+
+            <section class="tts-generation">
+                <h2>TTS Generation</h2>
+                <ul>
+                    {% for tts_file in tts_file_list %}
+                        <li>
+                            <button class="tts-list-entry" data-filename="{{ tts_file }}">{{ tts_file }}</button>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+            
+
+            <div class="preview-container">
+                <h2>File Preview</h2>
+                <pre id="filePreview"></pre>
+            </div>
+            
+
+        </main> <!-- Added closing tag for main div -->
+
+        <footer class="footer">
+            <!-- ... (your existing footer content) ... -->
+        </footer>
+    </div>
+
+   
+
+    <script>
+        window.addEventListener('load', function () {
+            function previewFile(fileContent) {
+                console.log('Previewing file:', fileContent);
+                document.getElementById('filePreview').textContent = fileContent;
+            }
+    
+            function generateTTS(filename) {
+                console.log('Generating TTS for:', filename);
+    
+                // Make a POST request to /generate_tts/<filename>
+                fetch(`/generate_tts/${filename}`, {
+                    method: 'POST',
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message);
+                        // Display a flash message or any other notification mechanism
+                        alert(data.message);
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+    
+            // Get all file entries in the file-list
+            var fileEntries = document.querySelectorAll('.file-list-entry');
+    
+            // Add event listeners to each file entry for preview
+            fileEntries.forEach(function (fileEntry) {
+                var fileName = fileEntry.getAttribute('data-filename');
+                var fileContent = fileEntry.getAttribute('data-filecontent');
+    
+                // Create a preview button
+                var previewButton = document.createElement('button');
+                previewButton.textContent = 'Preview';
+                previewButton.addEventListener('click', function () {
+                    console.log('File Name:', fileName);
+                    console.log('File Content:', fileContent);
+                    previewFile(fileContent);
+                });
+    
+                // Create a generate TTS button
+                var generateTTSButton = document.createElement('button');
+                generateTTSButton.textContent = 'Generate TTS';
+                generateTTSButton.addEventListener('click', function () {
+                    generateTTS(fileName);
+                });
+    
+                // Append the buttons to the file entry
+                fileEntry.appendChild(previewButton);
+                fileEntry.appendChild(generateTTSButton);
+            });
+
+            // Get all tts entries in the tts-generation section
+            var ttsEntries = document.querySelectorAll('.tts-list-entry');
+
+            // Add event listeners to each tts entry for play
+            ttsEntries.forEach(function (ttsEntry) {
+                var fileName = ttsEntry.getAttribute('data-filename');
+
+                // Create an audio player container
+                var audioPlayerContainer = document.createElement('div');
+                audioPlayerContainer.className = 'audio-player';
+
+                // Create an audio player
+                var audioPlayer = document.createElement('audio');
+                audioPlayer.src = `/static/tts_articles/${fileName}`;
+                audioPlayer.controls = true;
+
+                // Append the audio player to the container
+                audioPlayerContainer.appendChild(audioPlayer);
+
+                // Append the audio player container to the tts entry
+                ttsEntry.appendChild(audioPlayerContainer);
+            });
+        });
+    </script>
+    
+    
+    
+</body>
+</html>

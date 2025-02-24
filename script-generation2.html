@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <title>ByteNews Script Generation 2</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: #D9E8EF;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 250px;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            padding: 20px;
+        }
+
+        .left-panel, .summary-options-container {
+            padding: 20px;
+            border-radius: 0px;
+        }
+
+        .left-panel {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+            border-right: 2px solid #000;
+            padding-right: 20px;
+        }
+
+        .article-selection {
+            border-bottom: 2px solid #000;
+            border-radius:0;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #000;
+            border-radius: 0;
+        }
+
+        .article-selection, .steps-info {
+            margin-bottom: 20px;
+        }
+
+        .summary-options-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 65%;
+        }
+
+        .summary-option {
+            display: flex; /* Enables flexbox layout */
+            align-items: center;
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: calc(100% - 40px);
+        }
+
+        .summary-image {
+            width: auto; /* Keeps image aspect ratio */
+            height: auto; /* Example height, adjust as needed */
+            margin-right: 20px; /* Adds some space between the image and the text */
+        }
+
+        .text-container {
+            flex-grow: 1; /* Allows text container to fill available space */
+        }
+        
+        select {
+            width: 85%; /* Makes select box full width of its container */
+            padding: 8px 12px; /* Adds some padding inside the select box */
+            margin-top: 8px; /* Adds a margin on the top for spacing */
+            margin-bottom: 16px; /* Adds a margin on the bottom for spacing */
+            border: 1px solid #ccc; /* Adds a border with a light grey color */
+            border-radius: 5px; /* Rounds the corners of the select box */
+            background-color: #fff; /* Sets a white background color */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adds a subtle shadow to the select box */
+            font-family: 'Poppins', sans-serif; /* Ensures font consistency */
+            font-size: 16px; /* Sets a readable font size */
+            cursor: pointer; /* Changes cursor to pointer to indicate it's selectable */
+        }
+
+        select:hover {
+            border-color: #007bff;
+        }
+
+
+        .save-preferences-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin-top: 20px;
+            width: 85%;
+            font-size: 16px;
+        }
+
+        .save-preferences-btn:hover {
+            background-color: #0056b3;
+        }
+
+        button {
+            width: auto;
+            padding: 10px 15px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+
+        .steps-info ol li {
+            list-style-type: none; /* Removes default list bullet */
+            padding-left: 40px; /* Provides space for the background image */
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-size: 25px 25px; /* Adjust based on your image size */
+            margin-bottom: 10px; /* Adjust based on your design */
+        }
+
+        .steps-info ol li:nth-child(1) {
+            background-image: url('./images/1.png');
+        }
+
+        .steps-info ol li:nth-child(2) {
+            background-image: url('./images/2.png');
+        }
+
+        .steps-info ol li:nth-child(3) {
+            background-image: url('./images/3.png');
+        }
+
+
+        .footer {
+            background: #232323;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .footer-nav {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src=".\images\LOGO.png" alt="ByteNews Logo" class="logo">
+        </header>
+
+        <hr style="border: solid 1px;">
+        <h1 style="margin-left: 20px;">Script Generation</h1>
+        <hr style="border: solid 1px;"><br>
+
+        <main class="main-content">
+            <div class="left-panel">
+
+                <div class="article-selection">
+                    <label for="select-analyzed-article">Select Analyzed Article</label><br>
+                    <select id="select-analyzed-article">
+                        <option value="TWH">The White House</option>
+                        <option value="BBAM">Beyond Bricks and Mortar</option>
+                        <option value="ROTV">Return of the Villains</option>
+                    </select><br>
+                    <label for="script-length">Script Length</label><br>
+                    <select id="script-length">
+                        <option value="short">Short</option>
+                        <option value="medium">Medium</option>
+                        <option value="long">Long</option>
+                    </select><br>
+                    <label for="quote-inclusion">Inclusion of Quotes</label><br>
+                    <select id="quote-inclusion">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select><br>
+                    <label for="transition-phrases">Transition Phrases:</label><br>
+                    <select id="transition-phrases">
+                        <option value="professional">Professional</option>
+                        <option value="amateur">Amateur</option>
+                        <option value="beginner">Beginner</option>
+                    </select><br>
+                    <label for="script-preview">Script Preview:</label><br>
+                    <select id="script-preview">
+                        <option value="yes2">Yes</option>
+                        <option value="no2">No</option>
+                    </select><br>
+                    <button type="button" class="save-preferences-btn">Save Preferences</button><br><br>
+                </div>
+
+                <aside class="steps-info">
+                    <h2>Easy Script Generation In Three Steps</h2><br>
+                    <ol>
+                        <li>Choose an Analyzed Article.</li>
+                        <li>Pick a Completed Summary.</li>
+                        <li>Transform into Your Podcast Script.</li>
+                    </ol>
+                </aside>
+            </div>
+
+            <div class="summary-options-container">
+                <h2>Choose Your Script Style</h2>
+                <p>Explore and select from two engaging summary options to shape the narrative of your podcast script.</p><br>
+                <h3>Summary Option 1:</h3>
+                <div class="summary-option">
+                    <img src=".\images\The White House.png" alt="Summary Image 1" class="summary-image">
+                    <div class="text-container">
+                        <h4>The White House: A Pinnacle of American Democracy</h4>
+                        <p>Unveiling the grandeur of the United States' political epicenter, "The White House: A Symbol of American Democracy and Power" delves into the architectural marvel and historical significance of the iconic presidential residence. This exploration uncovers how the White House serves as both the official workplace and residence of the President, symbolizing the essence of American democracy.<br><br>The White House: A Symbol of American Democracy and Power" explores the rich history and architectural significance of the iconic presidential residence. From its neoclassical design to its pivotal role in shaping historical moments, the article highlights the White House's central role in American democracy, serving as both the official workplace and residence of the President. Through its enduring symbolism and cultural significance, the White House remains a testament to the nation's commitment to democracy, diplomacy, and the rule of law.</p><br>
+                        <button>Select Script</button>
+                    </div>
+                </div>
+                <h3>Summary Option 2:</h3>
+                <div class="summary-option">
+                    <img src=".\images\BBAM.png" alt="Summary Image 1" class="summary-image">
+                    <div class="text-container">
+                        <h4>Summary Title</h4>
+                        <p>Step into the heart of American governance with "The White House: A Symbol of American Democracy and Power." This brief yet insightful article navigates the historical corridors and architectural splendor of the presidential residence, uncovering its diverse spaces and roles in shaping the nation's political narrative. As a lasting emblem of democracy and global influence, the White House stands as a testament to the United States' commitment to its core values.<br><br>Delving into the heart of American governance, "The White House: A Symbol of American Democracy and Power" examines the historical evolution and architectural grandeur of the iconic presidential residence. From the Oval Office to the East Wing, the article explores the diverse spaces within the Executive Mansion and their roles in shaping the nation's political landscape. Through a lens of cultural and historical importance, the White House emerges as a lasting emblem of democracy, hosting crucial moments in U.S. history and projecting influence on the global stage.</p><br>
+                        <button>Select Script</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="footer">
+            <img src=".\images\LOGO white.png" alt="ByteNews Logo" class="logo">
+            <nav class="footer-nav">
+                <a href="#">About us</a>
+                <a href="#">Our Services</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Learn More</a>
+            </nav>
+            <br><br>
+            <hr style="border-color: #999DA0">
+            <p style="text-align: left; color:#999DA0"><br>© 2024 ByteNews Podcast Automation. All Rights Reserved</p>
+        </footer>
+    </div>
+</body>
+</html>

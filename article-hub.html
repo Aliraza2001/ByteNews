@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>ByteNews Article Hub</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: #D9E8EF;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between; /* Aligns children to start and end */
+            align-items: center; /* Centers children vertically */
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 250px;
+        }
+
+        .header-nav a {
+            text-decoration: none; /* Removes underline from links */
+            color: #000; /* Set your link color */
+            margin-left: 20px; /* Space between links */
+            font-size: 16px; /* Adjust the font size as needed */
+        }
+
+        /* Optional: Add a hover effect for links */
+        .header-nav a:hover {
+            color: #0056b3; /* Change color on hover */
+        }
+
+        
+        .title-and-links {
+            display: flex;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: #000; /* Change as needed */
+            margin-left: 20px; /* Space between links */
+            font-size: 16px; /* Adjust the font size as needed */
+        }
+
+        .links a:hover {
+            color: #0056b3; /* Change color on hover */
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            padding: 20px;
+        }
+
+        .panels-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+        .left-panel, .article-options-container {
+            padding: 20px;
+            border-radius: 0px;
+        }
+
+        .left-panel {
+            width: 25%;
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+            border-right: 2px solid #000;
+            padding-right: 20px;
+        }
+
+        .article-options-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Change to align-items: flex-end; */
+    width: 65%;
+}
+
+        select {
+            width: 85%; /* Makes select box full width of its container */
+            padding: 8px 12px; /* Adds some padding inside the select box */
+            margin-top: 8px; /* Adds a margin on the top for spacing */
+            margin-bottom: 16px; /* Adds a margin on the bottom for spacing */
+            border: 1px solid #ccc; /* Adds a border with a light grey color */
+            border-radius: 5px; /* Rounds the corners of the select box */
+            background-color: #fff; /* Sets a white background color */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adds a subtle shadow to the select box */
+            font-family: 'Poppins', sans-serif; /* Ensures font consistency */
+            font-size: 16px; /* Sets a readable font size */
+            cursor: pointer; /* Changes cursor to pointer to indicate it's selectable */
+        }
+
+        select:hover {
+            border-color: #007bff;
+        }
+
+        .search-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin-top: 20px;
+            width: 85%;
+            font-size: 16px;
+        }
+
+        .search-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .article-selection {
+            border-bottom: 2px solid #000;
+            border-radius:0;
+        }
+
+        .article-selection, .steps-info {
+            margin-bottom: 20px;
+        }
+
+        .article-options-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 65%;
+        }
+
+        .article-option {
+            display: flex;
+            position: relative; /* Added for absolute positioning of children */
+            align-items: flex-start; /* Aligns children to the top */
+            justify-content: space-between; /* Separates child elements */
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            font-family: 'Poppins', sans-serif;
+            color: #444;
+        }
+
+        .article-option .text-container {
+            width: calc(100% - 160px); /* Adjust the width based on the size of the image */
+        }
+
+        .article-stats {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-align: right;
+        }
+
+        .bias-level {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            padding: 5px 10px;
+            display: block; /* Makes it a block element */
+            font-size: 14px;
+        }
+
+        .bias-score {
+            font-weight: bold;
+            color: #e53e3e;
+        }
+
+        .word-count {
+            display: block; /* Makes it a block element */
+            font-size: 14px;
+            margin-top: 5px; /* Spacing between the bias level and word count */
+        }
+
+        .view-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background-color: #000; /* Changed to black */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .view-btn:hover {
+            background-color: #333; /* Darker shade of black on hover */
+        }
+
+        .article-converted {
+            display: inline-block; /* Use inline-block for better control */
+            border: 1px solid #000; /* Black border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 2px 8px; /* Some padding around the text */
+            margin-top: 8px; /* Space from the tags */
+            background-color: #fff; /* White background */
+            font-size: 14px; /* Font size as needed */
+            font-weight: bold; /* Make it bold to stand out */
+        }
+
+        .article-author, .article-content {
+            margin-top: 15px;
+        }
+
+        .article-image {
+            width: auto; /* Keeps image aspect ratio */
+            height: auto; /* Example height, adjust as needed */
+            margin-right: 20px; /* Adds some space between the image and the text */
+        }
+
+        .text-container {
+            flex-grow: 1; /* Allows text container to fill available space */
+        }
+
+        .steps-info {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .step h3 {
+            /* Your existing styles for h3 inside step */
+            margin-bottom: 30px; /* Adjust as needed */
+            margin-top: 20px;
+        }
+
+        .checkbox-container {
+            display: flex; /* Use flexbox to layout checkboxes in a line */
+            flex-wrap: wrap; /* Allow the items to wrap as needed */
+            gap: 10px; /* Provide some space between checkboxes */
+            margin-bottom: 10px; /* Space after the whole set of checkboxes */
+        }
+
+        .checkbox-container label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            white-space: nowrap; /* Prevent line breaks in labels */
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 5px; /* Space between checkbox and label text */
+        }
+
+        .footer {
+            background: #232323;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .footer-nav {
+            margin-top: 1rem;
+        }
+</style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src=".\images\LOGO.png" alt="ByteNews Logo" class="logo">
+            <nav class="header-nav">
+                <a href="#about">About Us</a>
+                <a href="#services">Our Services</a>
+                <a href="#contact">Contact Us</a>
+            </nav>
+        </header>
+
+        <hr style="border: solid 1px;">
+        <div class="title-and-links">
+            <h1 style="margin-right: 30px;">Article Hub</h1>
+            <div class="links">
+                <a href="#">All</a>
+                <a href="#">Saved</a>
+                <a href="#">Analyzed</a>
+                <a href="#">Converted</a>
+            </div>
+        </div>        
+        <hr style="border: solid 1px;"><br>
+
+     <main class="main-content">
+        <div class="panels-container">
+            <div class="left-panel">
+                <h2>Upload File</h2>
+                <form id="uploadForm" enctype="multipart/form-data" action="/upload" method="POST">
+                    <label for="fileUpload">Select a file:</label><br>
+                    <input type="file" id="fileUpload" name="file"><br><br>
+                
+                    <label for="title">Title:</label><br>
+                    <input type="text" id="title" name="title" style="width: 100%; height: 40px; font-size: 16px;"><br><br>
+                
+                    <label for="tags">Tags:</label><br>
+                    <textarea id="tags" name="tags" style="width: 100%; height: 40px; font-size: 16px;"></textarea><br><br>
+                
+                    <button type="submit" class="search-btn">Upload</button>
+                </form>
+                
+            </div>
+      
+        <div class="article-options-container">
+            <!-- Display articles -->
+            {% for article in articles %}
+            <div class="article-option" onclick="console.log('{{ article.file_path }}'); loadContent('{{ article.file_path }}', 'contentContainer{{ loop.index }}')">
+                <div class="text-container">
+                    <h3>{{ article.title }}</h3>
+                    <p>Tags: 
+                        {% for tag in article.tags %}
+                            <span class="tag">{{ tag }}</span>
+                        {% endfor %}
+                    </p>
+                    <!-- Add a placeholder for content -->
+                    <div id="contentContainer{{ loop.index }}"></div>
+                </div>
+            </div>
+            
+            {% endfor %}
+        </div>
+    </div>
+        
+        
+     </main>
+        <footer class="footer">
+            <img src=".\images\LOGO white.png" alt="ByteNews Logo" class="logo">
+            <nav class="footer-nav">
+                <a href="#">About us</a>
+                <a href="#">Our Services</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Learn More</a>
+            </nav>
+            <br><br>
+            <hr style="border-color: #999DA0">
+            <p style="text-align: left; color:#999DA0"><br>© 2024 ByteNews Podcast Automation. All Rights Reserved</p>
+        </footer>
+    </div>
+
+    <script>
+        function loadContent(file_path, containerId) {
+    // Construct the correct URL by concatenating the base URL with the file path
+    const url = `/static/${file_path}`;
+
+    console.log("Fetching from URL:", url); // Log the URL for debugging
+
+    // Fetch the content from the correct URL
+    fetch(url)
+        .then(response => {
+            // Check if the response is successful
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // Return the response text
+            return response.text();
+        })
+        .then(data => {
+            // Update the content of the specified container with the fetched data
+            document.getElementById(containerId).innerText = data;
+        })
+        .catch(error => {
+            // Handle any errors that occur during fetching
+            console.error('There was a problem fetching the content:', error);
+        });
+}
+    </script>
+    
+    
+    
+</body>

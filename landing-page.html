@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>ByteNews Publish Episode</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: #D9E8EF;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between; /* Aligns children to start and end */
+            align-items: center; /* Centers children vertically */
+            padding: 1rem;
+            text-align: left;
+            margin-bottom: 3%;
+        }
+
+        .logo {
+            max-width: 250px;
+        }
+
+        .header-nav a {
+            text-decoration: none; /* Removes underline from links */
+            color: #000; /* Set your link color */
+            margin-left: 20px; /* Space between links */
+            font-size: 16px; /* Adjust the font size as needed */
+        }
+
+        /* Optional: Add a hover effect for links */
+        .header-nav a:hover {
+            color: #0056b3; /* Change color on hover */
+        }
+
+        .white-sections {
+            background-color: white;
+        }
+
+        .content-area {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 3%;
+        }
+
+        .text-section {
+            max-width: 50%; /* Adjust the width as needed */
+            margin-left: 100px;
+        }
+
+        .image-section {
+            max-width: 50%; /* Adjust the width as needed */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 150px;
+        }
+
+        .main-image {
+            max-width: 100%; /* This ensures the image is responsive */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        .get-started-button {
+            display: block; /* To make the button a block element */
+            width: 200px; /* Width of the button */
+            padding: 15px 30px; /* Padding inside the button */
+            margin-top: 20px;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            border: none; /* No border */
+            border-radius: 10px; /* Rounded corners */
+            cursor: pointer; /* Cursor changes to pointer when hovering over the button */
+            font-size: 16px; /* Font size of the text inside the button */
+            font-family: 'Poppins', sans-serif; /* Font family */
+            text-align: center; /* Center the text */
+            text-decoration: none; /* Remove underline from text */
+            transition: background-color 0.3s; /* Smooth transition for hover effect */
+        }
+
+        .get-started-button:hover {
+            background-color: #333; /* Slightly lighter black for hover effect */
+        }
+
+        .podcast-platforms {
+            text-align: center;
+            margin: 0 auto; /* Center the container */
+            padding: 20px; /* Add some padding */
+        }
+
+        .platform-row {
+            display: flex;
+            justify-content: center; /* Center the images horizontally */
+            flex-wrap: wrap; /* Allows wrapping to next line */
+            gap: 20px; /* Space between images */
+            margin-bottom: 20px; /* Space between rows */
+        }
+
+        .platform {
+            width: 200px; /* Adjust the size of images */
+            height: 60px; /* Maintain aspect ratio */
+            margin: 10px; /* Space around each image */
+        }
+
+
+        .articles-to-podcasts {
+            display: grid;
+            grid-template-columns: 1fr 2fr; /* Two columns, the text takes 1 part and the grid takes 2 parts */
+            align-items: center; /* Align the items in the center vertically */
+            gap: 50px; /* Gap between the text and the grid */
+            margin: 50px 100px; /* Margin around the whole section */
+        }
+
+        .articles-to-podcasts h1 {
+            /* No need to set flex-basis here since we are using grid */
+            margin: 0; /* Reset margin for the title */
+            place-self: center start; /* Aligns the title to the center vertically and start (left) horizontally */
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 3 columns */
+            grid-gap: 40px; /* Increased the gap size */
+            /* Removed padding here, it's not necessary with the new layout */
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center-align the grid items */
+            text-align: center; /* Center-align the text */
+        }
+
+        .grid-item img {
+            max-width: 100%; /* Full width of the grid item */
+            height: 125px; /* Maintain aspect ratio */
+            margin-bottom: 10px; /* Space between image and caption */
+        }
+
+        .grid-item p {
+            font-size: 1rem; /* Slightly larger font size */
+            color: #3D7C99; /* Professional font color */
+            font-weight: 500; /* Medium font weight */
+            margin-top: 10px; /* Space between image and caption */
+            white-space: nowrap; /* Ensures the text is on one line */
+            overflow: hidden; /* Hide overflow */
+            text-overflow: ellipsis; /* Add ellipsis to overflow text */
+            padding: 5px 0; /* Padding above and below the text */
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.05); /* Zoom effect on hover */
+        }
+
+        .footer {
+            background: #232323;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .footer-nav {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="white-sections">
+        <div class="container">
+            <header class="header">
+                <img src="static\images\LOGO.png" alt="ByteNews Logo" class="logo">
+                <nav class="header-nav">
+                    <a href="#home">Home</a>
+                    <a href="#about">About Us</a>
+                    <a href="#services">Our Services</a>
+                    <a href="#contact">Contact Us</a>
+                </nav>
+            </header>
+
+            <div class="content-area">
+                <div class="text-section">
+                    <h1>Transforming News Bias into<br>Balanced Perspectives.</h1>
+                    <p>Empower yourself with our AI-driven platform that converts biased<br>
+                        news articles into unbiased, engaging content and personalized<br>
+                        podcasts.</p>
+                    <a href="/register" class="get-started-button-link">
+                        <button class="get-started-button">Get Started</button>
+                    </a>  
+                </div>
+                <div class="image-section">
+                    <img src="static\images\thinking.png" alt="Thinking" class="main-image">
+                </div>
+            </div>          
+        </div>
+    </div>
+
+    <h1 style="text-align: center; margin-top: 50px; margin-bottom: 50px;">Publish with Ease: Your News, Your<br>Podcast, Everywhere!</h1>
+    <div class="podcast-platforms">
+        <div class="platform-row">
+            <img src="static\images\spotify.png" alt="Spotify" class="platform">
+            <img src="static\images\apple-podcasts.png" alt="Apple Podcasts" class="platform">
+            <img src="static\images\google-podcasts.png" alt="Google Podcasts" class="platform">
+            <img src="static\images\amazon-music.png" alt="Amazon Music" class="platform">
+        </div>
+        <div class="platform-row">
+            <img src="static\images\tunein.png" alt="TuneIn" class="platform">
+            <img src="static\images\stitcher.png" alt="Stitcher" class="platform">
+            <img src="static\images\castbox.png" alt="Castbox" class="platform">
+        </div>
+    </div>
+    
+
+    <div class="white-sections">
+        <div class="container">
+            <div class="articles-to-podcasts">
+                <h1>Articles to Podcasts,<br>Simplified!</h1>
+                <div class="grid">
+                    <a href="/articlehub" class="grid-item">
+                        <img src="static\images\article-hub.png" alt="article-hub">
+                        <p>Article Hub</p>
+                    </a>
+                    <a href="/main" class="grid-item">
+                        <img src="static\images\bias-analysis.png" alt="bias-analysis">
+                        <p>Bias Analysis</p>
+                    </a>
+                    <a href="script-generation2.html" class="grid-item">
+                        <img src="static\images\script-generation.png" alt="script-generation">
+                        <p>Script Generation</p>
+                    </a>
+                    <a href="audio-conversion.html" class="grid-item">
+                        <img src="static\images\audio-conversion.png" alt="audio-conversion">
+                        <p>Audio Conversion</p>
+                    </a>
+                    
+                    <a href="podcast-management.html" class="grid-item">
+                        <img src="static\images\podcast-management.png" alt="podcast-management">
+                        <p>Podcast Management</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <img src="static\images\LOGO white.png" alt="ByteNews Logo" class="logo">
+        <nav class="footer-nav">
+            <a href="#">About us</a>
+            <a href="#">Our Services</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Learn More</a>
+        </nav>
+        <br><br>
+        <hr style="border-color: #999DA0">
+        <p style="text-align: left; color:#999DA0"><br>© 2024 ByteNews Podcast Automation. All Rights Reserved</p>
+    </footer>
+</body>
+</html>

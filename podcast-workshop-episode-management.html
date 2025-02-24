@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <title>Podcast Workshop Episode Management</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: #D9E8EF;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 250px;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            padding: 20px;
+        }
+
+        .left-panel {
+            flex-basis: 300px; /* Adjust this value to increase the width */
+            flex-grow: 0; /* Prevent the panel from growing beyond the flex-basis */
+            flex-shrink: 0; /* Prevent the panel from shrinking */
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+            border-right: 2px solid #000;
+            padding-right: 20px;
+        }
+
+        .upload-download {
+            background-color:#fff;
+            padding: 20px;
+            border:#000;
+            border-style: solid;
+        }
+
+        .upload-box, .download-box {
+            border: 2px dashed #000;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #ffffff;
+        }
+
+        .upload-box:hover, .download-box:hover {
+            background-color: #f3f3f3;
+        }
+
+        .upload-box input, .download-box input {
+            display: none; /* Hide the default input */
+        }
+
+        .confirm-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin-top: 20px;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .confirm-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .scheduled-ep-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center align content */
+            overflow-x: auto;
+        }
+
+        .search-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 600px; /* Set a max-width for the search bar container */
+            margin: 20px 0;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            background: #ffffff;
+            padding: 5px 10px;
+            border: 1px solid #000;
+            border-radius: 20px; /* Rounded borders for a more professional look */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Subtle shadow for depth */
+        }
+
+        .search-bar input {
+            border: none;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px; /* Larger font size for better readability */
+        }
+
+        .search-bar input::placeholder {
+            color: #999;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+        }
+
+        .search-icon {
+            color: #000;
+            font-size: 20px; /* Slightly larger icon for visibility */
+        }
+
+        .create-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px; /* Matching font size with the search bar */
+            margin-left: 10px;
+        }
+
+        .create-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Updated styles for the search icon */
+        .search-icon {
+            filter: grayscale(100%); /* Make the icon black and white */
+        }
+
+        /* Styles for the episodes table */
+        .episodes-table {
+            width: 100%; /* Full width */
+            table-layout: fixed;
+            text-align: center; /* Align text to the left */
+            border-collapse: collapse; /* Collapse borders */
+        }
+
+        .episodes-table tr{
+            border-bottom: solid #000 2px;
+        }
+
+        .episodes-table th {
+            border-bottom: none;
+        }
+
+        .episodes-table th, .episodes-table td {
+            padding: 8px; /* Padding around table cells */
+            border-bottom: 1px solid #ddd; /* Light border for each row */
+            text-align: center;
+            word-wrap: break-word;
+        }
+
+        /* Styles for episode images and details */
+        .episode-img {
+            width: 50px; /* Fixed width for images */
+            height: 50px; /* Fixed height for images */
+            margin-right: 10px; /* Space between image and text */
+        }
+
+        .episode-details {
+            display: flex;
+            align-items: center; /* Align image and text vertically */
+            justify-content: center;
+            padding: 10px; /* Add some padding */
+            margin-bottom: 10px;
+        }
+
+        .text-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .episode-number, .episode-link{
+            flex-direction: column;
+        }
+
+        .episode-number {
+            margin-right: 5px; /* Space between episode number and view button */
+        }
+
+        .episode-link {
+            font-size: 0.8em;
+            font-style: italic;
+            cursor: pointer; /* Indicate the text is clickable */
+            text-decoration: none; /* Optional: Remove underline from link */
+            color: #000; /* Optional: Set the link color */
+        }
+
+        /* Styles for the actions buttons and icons */
+        .action-btn {
+            background-color: #000;
+            color: #fff;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            width: auto;
+            margin-top: 10%;
+            font-size: 15px; /* Increase font size */
+            padding: 12px 24px;
+        }
+
+        .action-btn:hover {
+            background-color: #6c757d;
+        }
+
+        .action-icons {
+            display: flex;
+            align-items: center;
+        }
+
+        .action-icon {
+            cursor: pointer; /* Indicate icons are clickable */
+            font-size: 1.2em;
+            margin-right: 10%;
+        }
+
+        .footer {
+            background: #232323;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .footer-nav {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src=".\images\LOGO.png" alt="ByteNews Logo" class="logo">
+        </header>
+
+        <hr style="border: solid 1px;">
+        <h1 style="margin-left: 20px;">Podcast Workshop Episode Management</h1>
+        <hr style="border: solid 1px;"><br>
+
+        <main class="main-content">
+            <div class="left-panel">
+                <div class="upload-download">
+                    <h4>Edit Podcast</h4><br>
+                    <label class="upload-box">
+                        Select your file to add it
+                        <input type="file" name="podcast_file" onchange="document.getElementById('upload-filename').textContent = this.files[0].name">
+                    </label>
+                    <span id="upload-filename"></span>
+                    <br><br><br>
+                    <h4>Download New File</h4>
+                    <div class="download-box">
+                        Select your file to add it
+                    </div>
+                    <button class="confirm-btn">Confirm</button>
+                </div>
+            </div>
+            <div class="scheduled-ep-container">
+                <h2 style="text-align: center;">Scheduled Episodes</h2>
+                <div class="search-container">
+                    <div class="search-bar">
+                        <span class="search-icon">&#128269;</span> <!-- This is a basic magnifying glass icon. -->
+                        <input type="text" placeholder="Enter Keywords">
+                    </div>
+                    <button class="create-btn">Create New Schedule</button>
+                </div>
+                <br>
+                <table class="episodes-table">
+                    <thead>
+                        <tr>
+                            <th>Episode</th>
+                            <th>Scheduled For</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="episode-details">
+                                    <img src=".\images\episode16.png" alt="Episode16" class="episode-img">
+                                    <div class="text-details">
+                                        <span class="episode-number">Episode #16</span>
+                                        <a href="link-to-episode" class="episode-link">View Episode</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>14th August 2024 20:10:00</td>
+                            <td>
+                                <button class="action-btn">Change Schedule</button>
+                                <div class="action-icons">
+                                    <span class="action-icon" style="margin-left: 28%;">✏️</span>
+                                    <span class="action-icon">⬇️</span>
+                                    <span class="action-icon">⬆️</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="episode-details">
+                                    <img src=".\images\episode45.jpg" alt="Episode45" class="episode-img">
+                                    <div class="text-details">
+                                        <span class="episode-number">Episode #45</span>
+                                        <a href="link-to-episode" class="episode-link">View Episode</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>15th August 2024 20:10:00</td>
+                            <td>
+                                <button class="action-btn">Change Schedule</button>
+                                <div class="action-icons">
+                                    <span class="action-icon" style="margin-left: 28%;">✏️</span>
+                                    <span class="action-icon">⬇️</span>
+                                    <span class="action-icon">⬆️</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="episode-details">
+                                    <img src=".\images\episode125.png" alt="Episode125" class="episode-img">
+                                    <div class="text-details">
+                                        <span class="episode-number">Episode #45</span>
+                                        <a href="link-to-episode" class="episode-link">View Episode</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>16th August 2024 20:10:00</td>
+                            <td>
+                                <button class="action-btn">Change Schedule</button>
+                                <div class="action-icons">
+                                    <span class="action-icon" style="margin-left: 28%;">✏️</span>
+                                    <span class="action-icon">⬇️</span>
+                                    <span class="action-icon">⬆️</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="episode-details">
+                                    <img src=".\images\episode78.png" alt="Episode78" class="episode-img">
+                                    <div class="text-details">
+                                        <span class="episode-number">Episode #78</span>
+                                        <a href="link-to-episode" class="episode-link">View Episode</a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>17th August 2024 20:10:00</td>
+                            <td>
+                                <button class="action-btn">Change Schedule</button>
+                                <div class="action-icons">
+                                    <span class="action-icon" style="margin-left: 28%;">✏️</span>
+                                    <span class="action-icon">⬇️</span>
+                                    <span class="action-icon">⬆️</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br><br>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <img src=".\images\LOGO white.png" alt="ByteNews Logo" class="logo">
+            <nav class="footer-nav">
+                <a href="#">About us</a>
+                <a href="#">Our Services</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Learn More</a>
+            </nav>
+            <br><br>
+            <hr style="border-color: #999DA0">
+            <p style="text-align: left; color:#999DA0"><br>© 2024 ByteNews Podcast Automation. All Rights Reserved</p>
+        </footer>
+    </div>
+</body>
+</html>

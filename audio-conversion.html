@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>ByteNews Audio Conversion</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: #D9E8EF;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between; /* Aligns children to start and end */
+            align-items: center; /* Centers children vertically */
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 250px;
+        }
+
+        .header-nav a {
+            text-decoration: none; /* Removes underline from links */
+            color: #000; /* Set your link color */
+            margin-left: 20px; /* Space between links */
+            font-size: 16px; /* Adjust the font size as needed */
+        }
+
+        /* Optional: Add a hover effect for links */
+        .header-nav a:hover {
+            color: #0056b3; /* Change color on hover */
+        }
+
+        .title-and-links {
+            display: flex;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .links a {
+            text-decoration: none;
+            color: #000; /* Change as needed */
+            margin-left: 20px; /* Space between links */
+            font-size: 16px; /* Adjust the font size as needed */
+        }
+
+        .links a:hover {
+            color: #0056b3; /* Change color on hover */
+        }
+
+
+        .content-wrapper {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .left-panel {
+            width: 35%; /* Adjust the width as needed */
+            padding: 20px;
+            border-right: 2px solid #000; /* Adds a right border */
+        }
+
+        .saved-files-section {
+            border-bottom: solid #000 2px;
+        }
+
+        .saved-files-section h2,
+        .timeline-section h2 {
+            margin-bottom: 20px;
+        }
+
+        .timeline-section {
+            margin-top: 40px;
+            padding: 20px;
+        }
+
+        .file-card {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            background-color: #F0F0F0;
+            padding: 10%;
+        }
+
+        .file-details {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Push the button and info to opposite sides */
+        }
+
+        .audio-info {
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .audio-info p {
+            font-size: 0.9em; /* Adjust font size as needed */
+            color: #555;
+            margin: 0; /* Remove default paragraph margins */
+        }
+
+        .file-card img {
+            width: 100%; /* Adjust as needed */
+            border-radius: 5px; /* Rounded corners for images */
+            margin-bottom: 10px;
+        }
+
+        .file-info h3 {
+            font-size: 1em;
+            margin-bottom: 5px;
+        }
+
+        .file-info p {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .listen-button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .listen-button i {
+            margin-left: 5px;
+        }
+
+        .timeline-section {
+            margin-top: 40px;
+        }
+
+        .timeline-image {
+            width: 100%; /* Make the image width responsive to the .timeline-section width */
+            height: auto; /* Maintain the aspect ratio of the image */
+            display: block; /* Eliminate any extra space below the image */
+        }
+
+        .edit {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center the content */
+            width: 100%; /* Ensure .edit takes full width */
+            padding:2%;
+        }
+
+        .columns {
+            display: flex;
+            justify-content: space-between; /* Space between the two columns */
+            width: 100%; /* Full width to contain both columns */
+        }
+
+        .column {
+            flex-basis: 48%; /* Adjust this value based on the gap you want between columns */
+            /* Other styles remain unchanged */
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: center; /* Center the buttons horizontally */
+            padding: 20px 0; /* Add vertical padding above and below the buttons */
+            width: 100%; /* Ensure the container takes the full width */
+            margin-top: 4%;
+        }
+
+        .form-button {
+            background-color: black; /* Set the button background to black */
+            color: white; /* Set the text color to white */
+            border: none; /* Remove any default border */
+            padding: 10px 20px; /* Add padding inside the buttons */
+            margin: 0 10px; /* Add space between the buttons */
+            border-radius: 5px; /* Optional: adds rounded corners for a more professional look */
+            cursor: pointer; /* Change the cursor to a pointer to indicate it's clickable */
+            font-size: 16px; /* Increase font size for better readability */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effects */
+        }
+
+        .form-button:hover {
+            background-color: #333; /* Darker shade when hovering */
+            color: #ddd; /* Lighter text color when hovering */
+        }
+
+        .form-group {
+            margin-bottom: 20px; /* Spacing between form elements */
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background-color: #f0f0f0;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .search-box i {
+            margin-right: 10px;
+        }
+
+        .form-group input[type="text"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .right-panel {
+            width: 22%;
+            padding: 20px;
+            border-left: 2px solid #000; /* Border line separating from the main content */
+            flex: 1;
+        }
+
+                .voice-selection {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+        }
+
+        .voice-button {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background-color: #f0f0f0;
+        border: 1px solid #000; /* Adds a light grey border */
+        border-radius: 5px; /* Optional: adds rounded corners */
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-bottom: 10px; /* Adds space between the buttons */
+        margin-right: 2px;
+        }
+
+        .voice-button:hover {
+        background-color: #e0e0e0;
+        }
+
+        .voice-icon {
+        font-size: 24px; /* Adjust as needed for your characters or emojis */
+        margin-right: 10px; /* Adds some space between the icon and the text */
+        }
+
+        .voice-info {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        }
+
+        .voice-name {
+        font-size: 1.2em;
+        }
+
+        .voice-type {
+        font-size: 0.8em;
+        color: #555;
+        }
+
+        .playback-selection {
+            display: flex;
+            justify-content: space-around; /* This will distribute space evenly between the buttons */
+            padding: 20px; /* Adjust the padding as needed */
+        }
+
+        .playback-button {
+            padding: 10px 20px; /* Padding inside the buttons */
+            margin: 0 5px; /* Margin between the buttons */
+            border: 1px solid #000; /* Border color can be changed as needed */
+            border-radius: 5px; /* Rounded corners for the buttons */
+            background-color: #f0f0f0; /* Background color for the buttons */
+            cursor: pointer; /* Cursor changes to pointer to indicate a clickable item */
+            transition: background-color 0.3s; /* Transition for the background color on hover */
+        }
+
+        .playback-button:hover {
+            background-color: #e0e0e0; /* Slightly darker background on hover */
+        }
+
+        .playback-button.active {
+            background-color: #007bff; /* Active button background color */
+            color: white; /* Active button text color */
+            border-color: #007bff; /* Active button border color */
+        }
+
+        .voice-preferences {
+            padding-top: 20px; /* Padding to match the rest of the layout */
+            display: flex;
+            align-items: center; /* Aligns the checkbox and label vertically */
+        }
+
+        .save-voice-label {
+            cursor: pointer; /* Changes the cursor to indicate the label is clickable */
+        }
+
+        #save-voice-checkbox {
+            margin-left: 5px;
+            cursor: pointer; /* Changes the cursor to indicate the checkbox is clickable */
+        }
+
+        .footer {
+            background: #232323;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .footer-nav {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src=".\images\LOGO.png" alt="ByteNews Logo" class="logo">
+            <nav class="header-nav">
+                <a href="#about">About Us</a>
+                <a href="#services">Our Services</a>
+                <a href="#contact">Contact Us</a>
+            </nav>
+        </header>
+
+        <hr style="border: solid 1px;">
+        <div class="title-and-links">
+            <h1 style="margin-right: 30px;">Audio Conversion</h1>
+            <div class="links">
+                <a href="#">All</a>
+                <a href="#">Summaries</a>
+                <a href="#">News</a>
+                <a href="#">Highlights</a>
+            </div>
+        </div>        
+        <hr style="border: solid 1px;"><br>
+
+    <form action="/process-audio-conversion-filters" method="post">
+        <div class="content-wrapper">
+            <div class="left-panel">
+                <div class="saved-files-section">
+                    <h2>Your Saved Files:</h2>
+                    <div class="file-card">
+                        <img src=".\images\balloon-failure.png" alt="Balloon Failure">
+                        <div class="file-info">
+                            <h3>BALLOON FAILURE</h3>
+                            <div class="file-details">
+                                <button class="listen-button">Listen <i class="fas fa-headphones"></i></button>
+                                <div class="audio-info">
+                                    <p>7 Min Audio</p>
+                                    <p>8th Oct 2023</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="file-card">
+                        <img src=".\images\culinary.png" alt="Culinary">
+                        <div class="file-info">
+                            <h3>CULINARY...</h3>
+                            <div class="file-details">
+                                <button class="listen-button">Listen <i class="fas fa-headphones"></i></button>
+                                <div class="audio-info">
+                                    <p>4 Min Audio</p>
+                                    <p>2nd Jan 2024</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-section">
+                    <img src="./images/timeline.png" alt="timeline" class="timeline-image">
+                </div>
+            </div>
+            
+        
+            <div class="edit">
+                <div class="columns">
+                    <div class="column">
+                        <div class="form-group">
+                            <label for="episode-title">Episode Title</label>
+                            <div class="search-box">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="episode-title" name="episode-title" placeholder="Search">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="script-language">Script Language</label>
+                            <select id="script-language" name="script-language">
+                                <option value="english">English</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="file-format">File Format</label>
+                            <select id="file-format" name="file-format">
+                                <option value="mp3">MP3</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="form-group">
+                            <label for="audio-quality">Audio Quality</label>
+                            <select id="audio-quality" name="audio-quality">
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="select-script">Select Script</label>
+                            <input type="text" id="select-script" name="select-script" placeholder="Enter script name">
+                        </div>
+                        <div class="form-group">
+                            <label for="output-file-name">Output File Name</label>
+                            <input type="text" id="output-file-name" name="output-file-name">
+                        </div>
+                    </div>
+                </div>
+                {% if download_link %}
+                    <div class="download-section">
+                        <a href="{{ download_link }}" class="form-button" id="download-file">Download File</a>
+                    </div>
+                    {% endif %}
+            </div>
+            
+            <div class="right-panel">
+                <p style="font-weight: bold;">Select Voice</p>
+                <div class="voice-selection">
+                    <label class="voice-button"><input type="radio" name="selected-voice" value="John" checked> <span class="voice-icon">👨</span>John - English Male</label>
+                    <label class="voice-button"><input type="radio" name="selected-voice" value="Matt"> <span class="voice-icon">👨</span>Matt - English Male</label>
+                    <label class="voice-button"><input type="radio" name="selected-voice" value="Jane"> <span class="voice-icon">👩</span>Jane - English Female</label>
+                    <label class="voice-button"><input type="radio" name="selected-voice" value="Jennifer"> <span class="voice-icon">👩</span>Jenny - English Female</label>
+                </div>
+                <br>
+                <p style="font-weight: bold;">Select Playback Speed</p>
+                <div class="playback-selection">
+                    <select name="playback-speed" id="playback-speed">
+                        <option value="0.75">0.75x</option>
+                        <option value="1.0" selected>1.0x</option>
+                        <option value="1.25">1.25x</option>
+                        <option value="1.5">1.5x</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="form-button" name="submit-button" value="process-audio">Generate Audio File</button>
+                </div>
+            </div>
+        </div>
+        </form>  
+     </div>
+        
+        <footer class="footer">
+            <img src=".\images\LOGO white.png" alt="ByteNews Logo" class="logo">
+            <nav class="footer-nav">
+                <a href="#">About us</a>
+                <a href="#">Our Services</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Learn More</a>
+            </nav>
+            <br><br>
+            <hr style="border-color: #999DA0">
+            <p style="text-align: left; color:#999DA0"><br>© 2024 ByteNews Podcast Automation. All Rights Reserved</p>
+        </footer>
+    </div>   
+</body>
+</html>

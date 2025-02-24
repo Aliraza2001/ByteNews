@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>ByteNews Publish Episode</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: #D9E8EF;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between; /* Aligns children to start and end */
+            align-items: center; /* Centers children vertically */
+            padding: 1rem;
+            text-align: left;
+            margin-bottom: 3%;
+        }
+
+        .logo {
+            max-width: 250px;
+        }
+
+        .header-nav a {
+            text-decoration: none; /* Removes underline from links */
+            color: #000; /* Set your link color */
+            margin-left: 20px; /* Space between links */
+            font-size: 16px; /* Adjust the font size as needed */
+        }
+
+        /* Optional: Add a hover effect for links */
+        .header-nav a:hover {
+            color: #0056b3; /* Change color on hover */
+        }
+
+        .title-container {
+            display: flex;
+            align-items: center; /* Align vertically */
+            justify-content: space-between; /* Space between text and image */
+            margin: 0 75px; /* Use the same margin as hr for alignment */
+            padding: 20px 0; /* Space above and below */
+        }
+
+        .title-text h1 {
+            font-weight: bold;
+            margin-left: 145px;
+        }
+
+        .title-image {
+            max-height: 100px; /* Adjust based on your design */
+            max-width: 100%; /* Ensure it doesn't overflow */
+            object-fit: contain; /* Keep aspect ratio without stretching */
+            margin-right: 20px;
+        }
+
+        .upper-half {
+            background-color: white;
+        }
+
+        .lower-half {
+            background: #D9E8EF;
+            /* Additional styles for the lower half content */
+        }
+
+        .episode-management-container {
+            display: flex;
+            align-items: center;
+            margin: 10px 75px; /* Adjust margins as needed */
+        }
+
+        .episode-management-image {
+            max-width: 55px; /* Adjust size as needed */
+            margin-right: 20px; /* Space between the image and the text */
+        }
+
+        .episode-management-text p {
+            font-size: 1em; /* Adjust size as needed */
+            color:#367588;
+        }
+
+        .performance-tracking-text p {
+            font-size: 1em; /* Adjust size as needed */
+            color:#367588;
+        }
+
+        .performance-tracking-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin: 10px 75px; /* Adjust margins as needed */
+        }
+
+        .performance-tracking-image {
+            max-width: 55px; /* Adjust size as needed */
+            margin-left: 20px; /* Space between the image and the text */
+        }
+
+        .image-gallery {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 75px; /* Adjust the margin to leave some room on the sides */
+            gap: 20px; /* This adds space between the images */
+        }
+
+        .gallery-image {
+            width: calc((100% - 60px) / 4); /* Adjust the width for four images minus the gap */
+            height: auto; /* Maintain the aspect ratio */
+        }
+
+        .TG-gallery-image {
+            width: calc((100% - 60px) / 4); /* Adjust the width for four images minus the gap */
+            height: auto; /* Maintain the aspect ratio */
+        }
+
+        .TG-image-gallery {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 75px; /* Adjust the margin to leave some room on the sides */
+            gap: 20px; /* This adds space between the images */
+        }
+
+        .TP-gallery {
+            display: flex;
+            justify-content: space-between; /* Adjust the space distribution */
+            margin: 20px 75px; /* Keep or adjust margins as needed */
+        }
+
+        .TP-image-container {
+            border: 2px solid #000; /* Border around the image */
+            border-radius: 20px;
+            padding: 15px; /* Padding inside the border */
+            flex-grow: 1; /* Allow the boxes to grow and fill the space */
+            margin: 0 10px; /* Adjust the margin between boxes */
+        }
+
+        .TP-gallery-image {
+            width: 100%; /* Make the image take up the full container width */
+            height: auto; /* Maintain the aspect ratio */
+            margin-bottom: 8px; /* Space between the image and the text/title/link */
+        }
+
+        .image-container, .TG-image-container {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 8px; /* Increase bottom spacing */
+            right: 8px; /* Increase right spacing */
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
+            color: white;
+            padding: 5px;
+            font-size: 0.8em;
+            margin: 0;
+            border-radius: 5px;
+        }
+
+        /* Ensure anchor tags fill the container for clickable area */
+        .image-container a, .TG-image-container a {
+            display: block;
+            height: 100%;
+        }
+
+        /* Adjust the .gallery-image and .TG-gallery-image if needed to fit the captions */
+        .gallery-image, .TG-gallery-image {
+            width: 100%; /* Adjust width as needed */
+            display: block; /* Remove bottom space/margin */
+            transition: transform 0.3s ease;
+        }
+
+        .image-container:hover .gallery-image, 
+        .TG-image-container:hover .TG-gallery-image {
+            transform: scale(1.05); /* Enlarge image */
+            cursor: pointer;
+        }
+
+        .footer {
+            background: #232323;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .footer-nav {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="upper-half">
+        <div class="container">
+            <header class="header">
+                <img src=".\images\LOGO.png" alt="ByteNews Logo" class="logo">
+                <nav class="header-nav">
+                    <a href="#home">Home</a>
+                    <a href="#about">About Us</a>
+                    <a href="#services">Our Services</a>
+                    <a href="#contact">Contact Us</a>
+                </nav>
+            </header>
+
+            <hr style="border: solid 1px; margin-bottom: 20px; margin-left:75px; margin-right:75px; color: #D3D3D3;">
+            <div class="title-container">
+                <div class="title-text">
+                    <h1>Podcast Workshop</h1>
+                    <p>Orchestrate Your Audio Odyssey - Manage, Analyze, and Elevate Your Podcasts</p>
+                </div>
+                <img src="./images/tools.png" alt="Tools" class="title-image">
+            </div>
+            <hr style="border: solid 1px; margin-bottom: 20px; margin-left:75px; margin-right:75px; color: #D3D3D3;"><br>   
+
+            
+            <div class="episode-management-container">
+                <img src="./images/pm1.png" alt="Episode Management" class="episode-management-image">
+                <div class="episode-management-text">
+                    <h3 style="text-align: center; font-weight: lighter;">Episode Management</h3>
+                    <p>Craft Your Podcast Narrative - Fine-tune Your Episodes with Ease</p>
+                </div>
+            </div>
+        
+            <div class="image-gallery">
+                <a href="#" class="image-container">
+                    <img src="./images/edit.png" alt="EM-Image1" class="gallery-image">
+                    <span class="caption">Edit</span>
+                </a>
+                <a href="#" class="image-container">
+                    <img src="./images/download.png" alt="EM-Image2" class="gallery-image">
+                    <span class="caption">Download</span>
+                </a>
+                <a href="#" class="image-container">
+                    <img src="./images/upload.png" alt="EM-Image3" class="gallery-image">
+                    <span class="caption">Upload</span>
+                </a>
+                <a href="#" class="image-container">
+                    <img src="./images/schedule.png" alt="EM-Image4" class="gallery-image">
+                    <span class="caption">Schedule</span>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <div class="performance-tracking-container">
+        <div class="performance-tracking-text">
+            <h3 style="text-align: center; font-weight: lighter;">Performance Tracking</h3>
+            <p>Measure Your Impact - Gain Insights, Grow Your Reach</p>
+        </div>
+        <img src="./images/pm2.png" alt="Episode Management" class="performance-tracking-image">
+    </div>
+
+
+    <h3 style="margin-left: 75px;">Trending Genres:</h3>
+    <div class="TG-image-gallery">
+        <a href="#" class="TG-image-container">
+            <img src="./images/technology.png" alt="TG-Image1" class="TG-gallery-image">
+            <div class="caption">Technology</div>
+        </a>
+        <a href="#" class="TG-image-container">
+            <img src="./images/education.png" alt="TG-Image2" class="TG-gallery-image">
+            <div class="caption">Education</div>
+        </a>
+        <a href="#" class="TG-image-container">
+            <img src="./images/sports.png" alt="TG-Image3" class="TG-gallery-image">
+            <div class="caption">Sports</div>
+        </a>
+        <a href="#" class="TG-image-container">
+            <img src="./images/politics.png" alt="TG-Image4" class="TG-gallery-image">
+            <div class="caption">Politics</div>
+        </a>
+        <a href="#" class="TG-image-container">
+            <img src="./images/economics.png" alt="TG-Image5" class="TG-gallery-image">
+            <div class="caption">Economics</div>
+        </a>
+    </div>
+
+    <h3 style="margin-left: 75px;">Top Podcasts:</h3>
+    <div class="TP-gallery">
+        <div class="TP-image-container">
+            <img src="./images/the-daily.png" alt="Technology" class="TP-gallery-image">
+            <div class="image-text" style="font-weight: bold;">The Daily</div>
+            <a href="#" class="image-link">View Stats</a>
+        </div>
+        <div class="TP-image-container">
+            <img src="./images/the-joe-rogan-experience.png" alt="Education" class="TP-gallery-image">
+            <div class="image-text" style="font-weight: bold;">The Joe Rogan Experience</div>
+            <a href="#" class="image-link">View Stats</a>
+        </div>
+        <div class="TP-image-container">
+            <img src="./images/the-new-technology-hub.png" alt="Sports" class="TP-gallery-image">
+            <div class="image-text" style="font-weight: bold;">The New Technology Hub</div>
+            <a href="#" class="image-link">View Stats</a>
+        </div>
+    </div>
+
+        <footer class="footer">
+            <img src=".\images\LOGO white.png" alt="ByteNews Logo" class="logo">
+            <nav class="footer-nav">
+                <a href="#">About us</a>
+                <a href="#">Our Services</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Learn More</a>
+            </nav>
+            <br><br>
+            <hr style="border-color: #999DA0">
+            <p style="text-align: left; color:#999DA0"><br>© 2024 ByteNews Podcast Automation. All Rights Reserved</p>
+        </footer>
+    </div>
+</body>
+</html>

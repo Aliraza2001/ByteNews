@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <link href="main.css" rel="stylesheet" />
+    <title>ByteNews Sign In</title>
+</head>
+<style>
+    * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background: #D9E8EF;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header {
+    padding: 1rem;
+    text-align: left;
+}
+
+.logo {
+    max-width: 250px;
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 2%;
+}
+
+.signup-form {
+    background: #FFFFFF;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin-left: 5%;
+}
+
+.signup-form h1 {
+    margin-bottom: 1rem;
+}
+
+.signup-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.signup-form input {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #CCC;
+    border-radius: 5px;
+}
+
+.signup-form button {
+    background: #000;
+    color: #fff;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    height: 50px;
+}
+
+.signup-form button:hover {
+    background: #333;
+}
+
+.login-link {
+    margin-top: 1rem;
+    text-align: center;
+    color: #999DA0;
+}
+
+.login-link2 {
+    margin-top: 1rem;
+    text-align: center;
+    color: #000000;
+}
+
+.footer {
+    background: #232323;
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 0.5rem;
+}
+
+.footer-nav {
+    margin-top: 1rem;
+}
+
+input{
+  width: 100%; /* Adjust width to desired size or percentage */
+  height: 50px;
+  padding: 10px; /* Adjust padding for internal spacing */
+  font-size: 16px; /* Adjust font size for larger text */
+  border: 1px solid #CCC; /* Example border */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.signup-form,
+.form-image {
+    float: left; /* This will align them side by side */
+    margin-right: 175px; /* Adjust the gap between the form and the image */
+}
+
+.form-image img {
+    display: block; /* Removes bottom space under the image */
+    max-width: 100%; /* Ensures image responsiveness */
+    height: 415px; /* Keeps image aspect ratio */
+}
+
+.main-content::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+</style>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src="{{ url_for('static', filename='images/LOGO.png') }}" alt="ByteNews Logo" class="logo">
+        </header>
+        <main class="main-content">
+            <section class="signup-form">
+                <p>Welcome!</p><br>
+                <h2>Sign in to</h2>
+                <h4>generate your news podcast!</h4><br><br>
+                <form action="/login" method='POST'>
+                    <label for="username">Username</label>
+                        <input 
+                        type="text" 
+                        class="form-control" 
+                        id="username" 
+                        name="username" 
+                        placeholder="Enter Username"
+                        />
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input 
+                            type="password" 
+                            class="form-control" 
+                            id="password" 
+                            name="password" 
+                            placeholder="Enter Password"
+                            />
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; font-size:13px;">
+                        <label style="display: flex; align-items: center;">
+                            <input type="checkbox" style="width:13px; height:13px; margin-right: 5px;"> Remember me
+                        </label>
+                        <a href="forgot-password.html" style="color: #999DA0; text-decoration: none;">Forgot Password?</a>
+                    </div>
+                    <br>
+                    <button type="submit">Login</button>
+                </form>
+                <br>
+                <p class="login-link">Don't have an account? <a class="login-link2" href="sign-up.html">Register</a></p>
+            </section>
+            <div class="form-image">
+                <img src="{{ url_for('static', filename='images/listening-pic.png')}}" alt="listening">
+            </div>
+        </main>
+        <br><br>
+        <footer class="footer">
+            <img src=".\images\LOGO white.png" alt="ByteNews Logo" class="logo">
+            <nav class="footer-nav">
+                <a href="#">About us</a>
+                <a href="#">Our Services</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Learn More</a>
+            </nav>
+            <br><br>
+            <hr style="border-color: #999DA0">
+            <p style="text-align: left; color:#999DA0"><br>© 2024 ByteNews Podcast Automation. All Rights Reserved</p>
+        </footer>
+    </div>
+</body>
+</html>

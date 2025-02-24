@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>ByteNews Publish Episode</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            background: #D9E8EF;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between; /* Aligns children to start and end */
+            align-items: center; /* Centers children vertically */
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .logo {
+            max-width: 250px;
+        }
+
+        .header-nav a {
+            text-decoration: none; /* Removes underline from links */
+            color: #000; /* Set your link color */
+            margin-left: 20px; /* Space between links */
+            font-size: 16px; /* Adjust the font size as needed */
+        }
+
+        /* Optional: Add a hover effect for links */
+        .header-nav a:hover {
+            color: #0056b3; /* Change color on hover */
+        }
+
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            padding: 20px;
+        }
+
+        .episode-selection-panel, .playlist-container {
+            padding: 20px;
+            border-radius: 0px;
+        }
+
+        .episode-selection-panel {
+            width: 22%;
+            display: flex;
+            flex-direction: column;
+            margin-right: 20px;
+            border-right: 2px solid #000;
+            padding-right: 20px;
+        }
+
+        .filter-selection {
+            border-bottom: 2px solid #000;
+            border-radius:0;
+        }
+
+        .audio-player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .audio-artwork {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 10px;
+        }
+
+        .audio-info {
+            margin-bottom: 10px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .audio-info .audio-title{
+            font-weight: bold;
+        }
+
+        .audio-controls button {
+            border: none;
+            background-color: transparent; /* No background for simple icons */
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .audio-controls .circle-icon {
+            color: #fff; /* White icon */
+            background-color: #000; /* Black circle background */
+            border-radius: 50%; /* Circular shape */
+            padding: 10px; /* Adjust size of the circle */
+        }
+
+        .audio-controls .simple-icon {
+            color: #000; /* Black icon */
+        }
+
+        /* Adjust icon sizes as needed */
+        .audio-controls i {
+            font-size: 20px; /* Icon size */
+        }
+
+        .progress-container {
+            width: 100%;
+            background-color: #000000;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .progress-bar {
+            height: 5px;
+            background-color: #007bff;
+            border-radius: 5px;
+            width: 0%;
+        }
+
+
+        .playlist-container {
+            flex-grow: 1;
+            padding: 20px;
+            border-radius: 10px; /* Rounded edges for the white box */
+        }
+
+        .playlist {
+            background-color: #fff; /* White background for the playlist */
+            border: 1px solid #cac9c9; /* Subtle border for the playlist */
+            border-radius: 10px; /* Rounded edges inside the white box */
+            overflow: hidden; /* Ensures the border radius clips the child elements */
+        }
+
+        .episode {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .episode-info {
+            flex-grow: 1;
+        }
+
+        .episode-artwork-container {
+            margin-left: 10px; /* Adjust space between details and image */
+        }
+
+        .episode-artwork {
+            width: 50px; /* Adjust as needed */
+            height: 50px;
+            object-fit: cover; /* This will ensure the image covers the area without distortion */
+            border-radius: 5px;
+        }
+
+        .episode-details {
+            color: #6c757d; /* Bootstrap's gray */
+            font-size: 0.8rem; /* Smaller text */
+            display: flex;
+            align-items: center;
+            margin-top: 5px; /* Space above the details */
+        }
+
+        .episode-details i {
+            margin-right: 5px; /* Space between the icon and text */
+        }
+
+
+        .episode:hover {
+            background-color: #f5f5f5; /* Light hover effect for episodes */
+        }
+
+        .episode.selected {
+            background-color: rgba(144, 238, 144, 0.3); /* Light green highlight for selected episode */
+        }
+
+        /* Removes the border from the last episode item */
+        .playlist .episode:last-child {
+            border-bottom: none;
+        }
+
+        .right-panel {
+            width: 22%;
+            padding: 20px;
+            border-left: 2px solid #000; /* Border line separating from the main content */
+        }
+
+        /* Style adjustments for playlist category links */
+        .playlist-category-link {
+            text-decoration: none; /* Removes underline from links */
+            display: block; /* Makes the entire area clickable */
+            margin-bottom: 20px; /* Space between each category */
+        }
+
+        .playlist-category {
+            border-radius: 10px; /* Curved edges */
+            padding: 20px; /* Slight padding inside the boxes */
+            color: #fff; /* White text color */
+            font-weight: bold; /* Bold text for the category name */
+            transition: transform 0.2s; /* Smooth transition for hover effect */
+            height: 100px;
+        }
+
+        /* Hover effect for category boxes */
+        .playlist-category-link:hover .playlist-category {
+            transform: scale(1.05); /* Slightly enlarges the box */
+        }
+
+        /* Individual colors for each category */
+        .dull-purple { background-color: #6f42c1; }
+        .dull-green { background-color: #659e4a; }
+        .dull-blue { background-color: #3141bd; }
+        .orangish-red { background-color: #dc3545; }
+
+
+        .playlist .episode {
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+
+
+        hr {
+            border: none;
+            border-top: 2px solid #000;
+            border-radius: 0;
+        }
+
+        .filter-selection, .steps-info {
+            margin-bottom: 20px;
+        }
+
+
+        .text-container {
+            flex-grow: 1; /* Allows text container to fill available space */
+        }
+        
+        select {
+            width: 85%; /* Makes select box full width of its container */
+            padding: 8px 12px; /* Adds some padding inside the select box */
+            margin-top: 8px; /* Adds a margin on the top for spacing */
+            margin-bottom: 16px; /* Adds a margin on the bottom for spacing */
+            border: 1px solid #ccc; /* Adds a border with a light grey color */
+            border-radius: 5px; /* Rounds the corners of the select box */
+            background-color: #fff; /* Sets a white background color */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Adds a subtle shadow to the select box */
+            font-family: 'Poppins', sans-serif; /* Ensures font consistency */
+            font-size: 16px; /* Sets a readable font size */
+            cursor: pointer; /* Changes cursor to pointer to indicate it's selectable */
+        }
+
+        select:hover {
+            border-color: #007bff;
+        }
+
+
+        .search-files-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin-top: 20px;
+            width: 85%;
+            font-size: 16px;
+        }
+
+        .search-files-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .select-episode-btn {
+            width: auto;
+            padding: 10px 15px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: block;
+            margin: auto;
+        }
+
+        .select-episode-btn:hover {
+            background-color: #333;
+        }
+        
+
+        button {
+            width: auto;
+            padding: 10px 15px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #333;
+        }
+        
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; /* 15% from the top and centered */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; /* Could be more or less, depending on screen size */
+            border-radius: 10px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-artwork {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .modal-artwork img {
+            max-width: 200px; /* Adjust as necessary */
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto; /* Center image */
+        }
+
+        .episode-duration {
+            color: #6c757d; /* Bootstrap's gray */
+            font-size: 0.8rem; /* Smaller text */
+            text-align: center;
+            margin-top: 5px; /* Space between image and duration */
+            display: block;
+        }
+
+        .modal-content h3 {
+            text-align: center;
+        }
+
+        .platform-icons i {
+            margin: 0 10px; /* Space between icons */
+            font-size: 24px; /* Icon size */
+            color: black;
+        }
+
+        .schedule-publishing {
+            margin-top: 20px;
+        }
+
+        .btn-publish {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 14px 20px;
+            margin: 10px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn-publish:hover {
+            background-color: #45a049;
+        }
+
+        /* Add to your existing CSS */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 2; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            backdrop-filter: blur(8px); /* Blur the background */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; /* 10% from the top and centered */
+            padding: 20px;
+            border: none;
+            width: 40%; /* Could be more or less, depending on screen size */
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ... rest of the CSS ... */
+
+        /* New CSS for modal layout based on the provided image */
+        .modal-artwork img {
+            width: 100px; /* Adjust as necessary */
+            height: 100px; /* Adjust as necessary */
+            border-radius: 10px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .platform-icons {
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+            background-color: #e7f0fa;
+            border-radius: 20px;
+            margin-top: 20px;
+        }
+
+        .schedule-publishing {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .schedule-publishing label {
+            display: flex;
+            align-items: center;
+        }
+
+        .schedule-publishing input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .schedule-publishing input[type="datetime-local"] {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 5px;
+        }
+
+        .footer {
+            background: #232323;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 0.5rem;
+        }
+
+        .footer-nav {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img src=".\images\LOGO.png" alt="ByteNews Logo" class="logo">
+            <nav class="header-nav">
+                <a href="#about">About Us</a>
+                <a href="#services">Our Services</a>
+                <a href="#contact">Contact Us</a>
+            </nav>
+        </header>
+
+        <hr style="border: solid 1px;">
+        <h1 style="margin-left: 20px;">Publish Episode</h1>
+        <hr style="border: solid 1px;"><br>
+
+        <main class="main-content">
+            <div class="episode-selection-panel">
+
+                <div class="filter-selection">
+                    <label for="keyword">Key Word:</label><br>
+                    <select id="keyword">
+                        <option value="none">None</option>
+                        <option value="current-affairs">Current Affairs</option>
+                        <option value="technology">Technology</option>
+                        <option value="education">Education</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="sports">Sports</option>
+                    </select><br>
+                    <label for="playlist">Playlist:</label><br>
+                    <select id="playlist">
+                        <option value="any">Any</option>
+                        <option value="new-releases">New Releases</option>
+                        <option value="user-favorites">User Favorites</option>
+                        <option value="trending-now">Trending Now</option>
+                    </select><br>
+                    <label for="sortby">Sort By:</label><br>
+                    <select id="sortby">
+                        <option value="duration">Duration</option>
+                        <option value="relevance">Relevance</option>
+                        <option value="shortest-duration">Shortest Duration</option>
+                        <option value="longest-duration">Longest Duration</option>
+                    </select><br>
+                    <label for="filetype">File Type:</label><br>
+                    <select id="filetype">
+                        <option value="mp3">MP3</option>
+                        <option value="acc">ACC</option>
+                        <option value="high-quality">High Quality</option>
+                    </select><br>
+                    <button type="button" class="search-files-btn">Search Files</button><br><br>
+                </div>
+
+                <aside class="audio-player">
+                    <img src=".\images\audio-artwork.png" alt="Audio Artwork" class="audio-artwork">
+                    <div class="audio-info">
+                        <span class="audio-title">Episode #16 - The White House</span><br>
+                        <span class="audio-artist">From Series: Current Events Digest</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
+                    </div>                    
+                    <div class="audio-controls">
+                        <button onclick="document.getElementById('audio-file').currentTime -= 10"><i class="fas fa-step-backward simple-icon"></i></button>
+                        <button id="playPauseBtn"><i class="fas fa-play circle-icon"></i></button>
+                        <button onclick="document.getElementById('audio-file').currentTime += 10"><i class="fas fa-step-forward simple-icon"></i></button>
+                    </div>
+                </aside>
+            </div>
+
+            <div class="playlist-container">
+                <h2>Select Your Next Episode</h2>
+                <p>Select a Converted Audio Gem and Unleash it to the World as Your Next Podcast Episode!</p><br>
+                <div class="playlist">
+                    <div class="episode" onclick="selectEpisode(this)">
+                        <div class="episode-info">
+                            <span class="episode-title">Episode #45 - Tech Innovation Breakthrough</span>
+                            <div class="episode-details">
+                                <i class="fas fa-clock"></i> 08:54
+                                <i class="fas fa-music" style="margin-left: 30px;"></i> Tech Insights Weekly
+                                <i class="fas fa-calendar-alt" style="margin-left: 30px;"></i> 22/09/2019
+                            </div>
+                        </div>
+                        <div class="episode-artwork-container">
+                            <img src=".\images\episode45.jpg" alt="Episode45" class="episode-artwork">
+                        </div>
+                    </div>
+                    <div class="episode" onclick="selectEpisode(this)">
+                        <div class="episode-info">
+                            <span class="episode-title">Episode #125 - Climate Accord Summit</span>
+                            <div class="episode-details">
+                                <i class="fas fa-clock"></i> 09:10
+                                <i class="fas fa-music" style="margin-left: 30px;"></i> Current Events Digest
+                                <i class="fas fa-calendar-alt" style="margin-left: 30px;"></i> 15/06/2020
+                            </div>
+                        </div>
+                        <div class="episode-artwork-container">
+                            <img src=".\images\episode125.png" alt="Episode125" class="episode-artwork">
+                        </div>
+                    </div>
+                    <div class="episode" onclick="selectEpisode(this)">
+                        <div class="episode-info">
+                            <span class="episode-title">Episode #24 - SpaceX Mars Rover Launch</span>
+                            <div class="episode-details">
+                                <i class="fas fa-clock"></i> 12:36
+                                <i class="fas fa-music" style="margin-left: 30px;"></i> Tech Insights Weekly
+                                <i class="fas fa-calendar-alt" style="margin-left: 30px;"></i> 06/04/2021
+                            </div>
+                        </div>
+                        <div class="episode-artwork-container">
+                            <img src=".\images\episode24.png" alt="Episode24" class="episode-artwork">
+                        </div>
+                    </div>
+                    <div class="episode" onclick="selectEpisode(this)">
+                        <div class="episode-info">
+                            <span class="episode-title">Episode #78 - Art Renaissance Trends</span>
+                            <div class="episode-details">
+                                <i class="fas fa-clock"></i> 13:11
+                                <i class="fas fa-music" style="margin-left: 30px;"></i> Cultural Kaleidoscope
+                                <i class="fas fa-calendar-alt" style="margin-left: 30px;"></i> 27/09/2021
+                            </div>
+                        </div>
+                        <div class="episode-artwork-container">
+                            <img src=".\images\episode78.png" alt="Episode78" class="episode-artwork">
+                        </div>
+                    </div>
+                    <div class="episode" onclick="selectEpisode(this)">
+                        <div class="episode-info">
+                            <span class="episode-title">Episode #16 - The White House</span>
+                            <div class="episode-details">
+                                <i class="fas fa-clock"></i> 16:44
+                                <i class="fas fa-music" style="margin-left: 30px;"></i> Current Events Digest
+                                <i class="fas fa-calendar-alt" style="margin-left: 30px;"></i> 04/10/2022
+                            </div>
+                        </div>
+                        <div class="episode-artwork-container">
+                            <img src=".\images\episode16.png" alt="Episode16" class="episode-artwork">
+                        </div>
+                    </div>
+                    <div class="episode" onclick="selectEpisode(this)">
+                        <div class="episode-info">
+                            <span class="episode-title">Episode #85 - Global Cultural Festivals Showcase</span>
+                            <div class="episode-details">
+                                <i class="fas fa-clock"></i> 19:20
+                                <i class="fas fa-music" style="margin-left: 30px;"></i> Cultural Kaleidoscope
+                                <i class="fas fa-calendar-alt" style="margin-left: 30px;"></i> 15/11/2022
+                            </div>
+                        </div>
+                        <div class="episode-artwork-container">
+                            <img src=".\images\episode85.png" alt="Episode85" class="episode-artwork">
+                        </div>
+                    </div>
+                </div><br>
+                <button type="button" class="select-episode-btn">Select Episode</button><br><br>
+            </div>
+
+            <div class="right-panel">
+                <h2 style="text-align: center;">Popular Playlists</h2>
+                <p style="text-align: center;">Explore Trending Playlists and Amplify Your Episode's Reach.</p><br>
+                <a href="link-to-pop-playlist" class="playlist-category-link">
+                    <div class="playlist-category dull-purple">Pop</div>
+                </a>
+                <a href="link-to-indie-playlist" class="playlist-category-link">
+                    <div class="playlist-category dull-green">Indie</div>
+                </a>
+                <a href="link-to-news-politics-playlist" class="playlist-category-link">
+                    <div class="playlist-category dull-blue">News & Politics</div>
+                </a>
+                <a href="link-to-comedy-playlist" class="playlist-category-link">
+                    <div class="playlist-category orangish-red">Comedy</div>
+                </a>
+            </div>
+            
+        </main>
+        <footer class="footer">
+            <img src=".\images\LOGO white.png" alt="ByteNews Logo" class="logo">
+            <nav class="footer-nav">
+                <a href="#">About us</a>
+                <a href="#">Our Services</a>
+                <a href="#">Contact Us</a>
+                <a href="#">Learn More</a>
+            </nav>
+            <br><br>
+            <hr style="border-color: #999DA0">
+            <p style="text-align: left; color:#999DA0"><br>© 2024 ByteNews Podcast Automation. All Rights Reserved</p>
+        </footer>
+    </div>
+    <div id="episodeModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Publish Episode to...</h2>
+            <div class="modal-artwork">
+                <img src=".\images\episode78.jpg" alt="Episode Artwork">
+            </div>
+            <div class="episode-duration"></div>
+            <h3></h3>
+            <div class="platform-icons">
+                <a href="https://open.spotify.com/" target="_blank"><i class="fab fa-spotify"></i></a>
+                <a href="https://music.apple.com/us/browse" target="_blank"><i class="fab fa-apple"></i></a>
+                <a href="https://soundcloud.com/" target="_blank"><i class="fab fa-soundcloud"></i></a>
+            </div>
+            <div class="schedule-publishing">
+                <label>
+                    <input type="checkbox" id="scheduleCheckbox">
+                    Schedule publishing
+                </label>
+                <input type="datetime-local" name="publishing-time" id="publishingTime" disabled>
+            </div>
+            <button class="btn-publish">Publish</button>
+        </div>
+    </div>
+    <script>
+        // Get the modal and other elements
+        var modal = document.getElementById('episodeModal');
+        var btn = document.querySelector('.select-episode-btn');
+        var span = document.getElementsByClassName('close')[0];
+        var episodes = document.querySelectorAll('.episode');
+        var selectedEpisode;
+
+        function selectEpisode(episodeElement) {
+    // Remove 'selected' class from all episodes
+    episodes.forEach(function(ep) {
+        ep.classList.remove('selected');
+    });
+
+    // Add 'selected' class to the clicked episode
+    episodeElement.classList.add('selected');
+
+    // Get episode details
+    var imageSrc = episodeElement.querySelector('.episode-artwork').getAttribute('src');
+    var duration = episodeElement.querySelector('.episode-details .fa-clock').nextSibling.textContent.trim();
+    var title = episodeElement.querySelector('.episode-title').textContent.trim();
+
+    // Update modal content
+    var modalImage = document.querySelector('.modal-artwork img');
+    var modalDuration = document.querySelector('.modal-content .episode-duration');
+    var modalTitle = document.querySelector('.modal-content h3');
+
+    modalImage.src = imageSrc;
+    modalDuration.textContent = duration; // Adjust text as needed
+    modalTitle.textContent = title;
+}
+
+
+        
+        // Function to update modal content based on selected episode
+        function updateModalContent(episodeElement) {
+            var title = episodeElement.querySelector('.episode-info').textContent.trim();
+            var artworkSrc = episodeElement.querySelector('.episode-image').src;
+            var duration = episodeElement.querySelector('.episode-duration').textContent.trim();
+            
+            // Set the content in the modal
+            modal.querySelector('h3').textContent = title;
+            modal.querySelector('.modal-artwork img').src = artworkSrc;
+            modal.querySelector('.episode-duration').textContent = duration;
+        }
+        
+        // When the user clicks on an episode, mark it as selected and prepare to show in the modal
+        episodes.forEach(function(ep) {
+            ep.addEventListener('click', function() {
+                // Mark the episode as selected
+                if (selectedEpisode) {
+                    selectedEpisode.classList.remove('selected');
+                }
+                selectedEpisode = ep;
+                selectedEpisode.classList.add('selected');
+                
+                // Prepare the modal content based on the selected episode
+                updateModalContent(selectedEpisode);
+            });
+        });
+        
+        // When the user clicks the select episode button, if an episode is selected, show the modal
+        btn.onclick = function() {
+            var selectedEpisode = document.querySelector('.episode.selected');
+            if (selectedEpisode) {
+                selectEpisode(selectedEpisode);
+                modal.style.display = 'block';
+            } else {
+                alert('Please select an episode first.');
+            }
+        }
+        
+        // Close the modal when the user clicks on <span> (x)
+        span.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        document.getElementById('scheduleCheckbox').onchange = function() {
+            document.getElementById('publishingTime').disabled = !this.checked;
+        };
+        
+        // Close the modal when the user clicks outside of it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+        </script>
+</body>
+</html>

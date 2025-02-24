@@ -1,0 +1,1199 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+
+  <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
+
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+  <title>ByteNews</title>
+  <meta name="description" content="   " />
+  <link rel="canonical" href="https://ByteNews.com/" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ByteNews   | Best ByteNews | Newz | Byte" />
+  <meta property="og:description" content="" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet">
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
+    rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.0/font/bootstrap-icons.css" rel="stylesheet" crossorigin="anonymous">
+    <style>
+
+      .voice-grid div {
+        display: flex;
+        align-items: center;
+        background-color: #f1f1f1; /* Light gray background */
+        padding: 8px;
+        border-radius: 10px; /* Rounded edges */
+    }
+    
+    .voice-grid input[type="radio"] {
+        margin-right: 5px;
+        /* Hide the default radio button */
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        /* Use a custom bullet point */
+        border-radius: 5px; /* Rounded edges */
+        width: 16px;
+        height: 16px;
+        border: 2px solid #666;
+        background-color: #fff;
+        outline: none;
+    }
+    
+    .voice-grid input[type="radio"]:checked {
+        /* Change the background color when radio button is checked */
+        background-color: #666; /* Dark gray background */
+    }
+      body{
+          font-family: "Poppins", sans-serif;
+      }
+
+      .bold{
+          font-weight: 700;
+      }
+
+      .navbar{
+          padding: 10px 20px;
+      }
+      #navbarNav{
+          margin-left: auto;
+          display: flex;justify-content: right;
+          color: black;
+      }
+      .nav-link{
+          color: black;
+          font-weight:400;
+          margin: 30px 0;
+      }
+
+      .title-bold{
+          font-weight:800;
+          font-size: 40px;
+      }
+      .heading-container-title{
+          border-top: 1px solid rgba(128, 128, 128, 0.103);
+          border-bottom: 1px solid rgba(128, 128, 128, 0.103);
+      }
+      .clm-flex{
+          display: flex;
+          flex-direction: column;
+          text-align: center;
+      }
+      .blue-shade{
+          color: #3D7C99;
+      }
+      .container-how-it-work{
+          margin-top:50px;
+
+      }
+
+      /* container-how it work--------------------------------- */
+      .container-how-it-work{
+          padding: 5px 40px;
+      }
+      .flex-guide{
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin: 0px 10px;
+      }
+      .flex-guide i {
+          font-size: 40px;
+      }
+      .clm-guide {
+          padding: 5px 50px;
+      }
+      .clm-guide p{
+          font-size: 16px;
+          margin: 0 ;
+          padding: 0;
+      }
+      .three-icons{
+          height: 70%;
+          width: 90%;
+          text-align: center;
+      }
+      .three-icons-container{
+          display: flex;
+          justify-content: right;
+          align-items: center;
+      }
+      .bg-light-blue{
+          background-color:#D9E8EF ;
+          padding: 50px 0;
+          overflow: hidden;
+      }
+      .clm-flex-form {
+          background-color: white;
+          padding: 50x 50px;
+          border-radius: 12px;
+          box-shadow: #00000054 7px 5px 1px 2px;
+      }
+      #formFile{
+          padding: 40px 10px;
+          margin: 0;
+          background-color: #F7F7F7;
+          justify-content: center;
+          align-items: center;
+          display: flex;
+          text-align: center;
+      }
+      #file-upload-button{
+          border: none;
+          background-color: rebeccapurple;
+      }
+      .form-label{
+          color: black;
+          font-weight: 500;
+          margin: 0;
+
+      }
+      .form-control{
+          border: 1px solid #28282873;
+          padding: 25px 20px;
+      }
+      .upload-btn{
+          background-color: #5667FF;
+      }
+
+      .position-relative{
+          position: relative;
+          display: flex; 
+          background-color: #3D7C99;
+      }
+      .bg-white{
+          width: 50vw;
+          padding: 30px 30px;
+          text-align: left;
+          border-radius: 100px;
+          margin-left: 40px;
+      }
+      .article-white-bg{
+          width: 80%;
+          text-align: left;
+          text-align: center;
+          padding-right: 20px;
+      }
+      .quickadd{
+          padding: 50px;
+          padding-left: 50px;
+          width: 100vw;
+          margin-top: 50px;
+          margin-left: 40px;
+      }
+      .container-table{
+          background-color: white;
+          border-radius: 12px;
+          box-shadow: #00000054 7px 5px 1px 2px;
+          padding: 10px 20px !important;
+          width: 50%;
+      }
+      .table td, .table th {
+          padding:10px 10px ;
+          vertical-align: top;
+          text-align: left;
+          font-size: 13px;
+          border: 1px solid rgba(0, 0, 0, 0.384);
+      }
+
+
+      .table th {
+          padding:10px 10px ;
+          vertical-align: top;
+          text-align: left;
+          font-size: 13px;
+          border: 1px solid rgba(0, 0, 0, 0.384);
+      }
+
+
+      .normal-font{
+          font-weight: 300;
+      }
+
+      .form-check-input{
+          background-color: #5667FF;
+          border:#3D7C99 ;
+      }
+      .input-group-text{
+          background-color: transparent;
+          border: none;
+      }
+      #border-none:active{
+          border: none !important;
+      }
+      #border-none{
+          border: none !important;
+          padding: 0;
+      }
+      .input-group{
+          border: none;
+          display: flex;
+      }
+      .container-with-order{
+          display: flex;
+          align-items: center;
+          padding: 1px;
+          border: 1px solid grey;
+      }
+      /* container add a new title-------------------------  */
+
+      /* bias analysis------------------------- */
+      /* bias analysis------------------------- */
+
+      .container-lightblue{
+          background-color:#067eb656 ;
+          width: 60vw;
+          padding: 20px 30px;
+          text-align: center;
+          border-radius: 100px;
+          margin-left: -200px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: baseline;
+          margin-top: 50px;
+          text-align: center;
+      }
+      .container-lightblue-radius{
+          width: 60%;
+          align-items: center;
+          display: flex;
+          flex-direction: column;
+          padding-top: 10px;
+          justify-content: center;
+      }
+
+
+      .clm-flex-bias{
+          margin-left: 10px;   
+          width: 100%;
+          background-color:#D9E8EF ;
+          border: 1px solid black !important;
+          border-radius: 5px;
+          margin-top: 100px !important;
+          padding: 20px 10px;
+      }
+      .form-select{
+          padding: 10px 10px;
+          width: 100%;
+          border: none;
+          border-radius: 10px;
+          color: #818181;
+      }
+
+      .form-range{
+          width: 100%;
+      }
+      .flex-between{
+          display: flex;
+          justify-content: space-between;
+      }
+      .flex-between p{
+          font-size: 12px;
+      }
+
+      #form-range-track-bg  {
+          background-color: red;
+      }
+      .form-check-label{
+          color: rgb(0, 0, 0);
+          font-weight: 200;
+          font-size: 12px;
+      }
+      .smfont{
+          font-size: 13px;
+      }
+      .btn-formselectin{
+          display: flex;
+          flex-direction: row-reverse;
+          align-items: end;
+          height: 30%;
+      }
+      .border-pra{
+          border: 1px solid grey;
+      }
+      .height-600px{
+          padding: 10px 10px;
+      }
+
+      /* bias analysis------------------------- */
+
+      /* bias report------------------- */
+
+      .bg-whitepra{
+          background-color: white;
+          border-radius: 12px;
+          box-shadow: #00000054 7px 5px 1px 2px;
+          padding: 10px 20px !important;
+          margin: 10px 0px;
+      }
+
+      .bg-light-blue2{
+          background-color:#D9E8EF ;
+          overflow: hidden;
+      }
+      .bx-center{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          text-align: center;
+          background-color: red!;
+      }
+      .center-top-container{
+          display: flex;
+          justify-content: center;
+          text-align: center;align-items: center;
+          background-color: white;
+          width: 50%;
+          border-bottom-left-radius :20px ;
+          border-bottom-right-radius :20px ;
+      }
+
+
+      .clm-flex-Report{
+          display: flex;
+          flex-direction: column;
+          padding-top: 50px;
+      }
+      .flex-big-icon-with-whitebg{
+          display: flex;
+          align-items: center;
+          padding: 20px 10px;
+          background-color: white;
+          justify-content: space-between;
+          border-radius: 12px;
+      }
+      .flex-big-icon-with-whitebg img{
+          width: 50%;
+          margin: 10px 20px;
+      }
+
+      /* bias report------------------- */
+
+      .flexbtn{
+          display: flex;
+          justify-content: space-between;
+      }
+      .btnview{
+          padding: 10px 10px;
+          font-size: 14px;
+          background-color: #D9E8EF;
+      }
+      .table-tr{
+          padding: 1px;
+      }
+
+      .table-td{
+          padding: 1px;
+      }
+
+      .table-th{
+          font-weight: 300;
+          padding: 1px;
+      }
+      .flexiconsmcheck{
+          display: flex !important;
+          border: 1px solid gainsboro;
+      }
+
+      .d-flex-icon-justify-between{
+          display: flex;
+          justify-content: space-between;
+      }
+      .container-between{
+          display: flex;
+          justify-content: space-between;
+          margin: 20px 1px;
+      }
+      .form-select-last{
+          padding: 5px 10px;
+      }
+
+      .bgdark{
+          background-color: #232323;
+      }
+      footer{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 50px 10px;
+      }
+      footer ul{
+          display: flex;
+      }
+
+      footer ul li{
+          display: flex;
+          color: white;
+          margin: 10px 30px;
+      }
+
+      footer ul li a{
+          display: flex;
+          color: white;
+      }
+      .nav-footer{
+          display: flex;
+          justify-content: space-between;
+          color: white;
+      }
+      .nav-footer a {
+          color: white;
+          margin: 20px 30px;
+      }
+
+      .container-social{
+          display: flex;
+          margin: 1px 10px;
+          justify-content: space-between;
+      }
+      .container-social i{
+          margin: 1px 10px;
+      }
+      .footer-flex{
+          display: flex;justify-content: space-between;
+          padding-top: 10px ;
+          border-top:1px solid rgba(255, 255, 255, 0.26) ;
+      }
+
+      /* -------------switch */
+
+      .switch input { 
+          display:none;
+      }
+      .switch {
+          display:inline-block;
+          width:60px;
+          height:30px;
+          margin:0px;
+          transform:translateY(50%);
+          position:relative;
+      }
+      .slider {
+          position:absolute;
+          top:0;
+          bottom:0;
+          left:0;
+          right:0;
+          border-radius:30px;
+          box-shadow:0 0 0 2px #777, 0 0 4px #777;
+          cursor:pointer;
+          border:4px solid transparent;
+          overflow:hidden;
+          transition:.4s;
+      }
+      .slider:before {
+          position:absolute;
+          content:"";
+          width:100%;
+          height:100%;
+          background:#777;
+          border-radius:30px;
+          transform:translateX(-30px);
+          transition:.4s;
+      }
+
+      input:checked + .slider:before {
+          transform:translateX(30px);
+          background:#5667FF;
+      }
+      input:checked + .slider {
+          box-shadow:0 0 0 2px #5667FF,0 0 2px #5667FF;
+      }
+
+      .switch.flat .slider {
+          box-shadow:none;
+      }
+      .switch.flat .slider:before {
+          background:#FFF;
+      }
+      .switch.flat input:checked + .slider:before {
+          background:white;
+      }
+      .switch.flat input:checked + .slider {
+          background:#5667FF;
+      }
+
+
+      /* media------------------- */
+      @media only screen and (max-width: 1080px) {
+          .bg-white {
+              width: 58vw;
+              padding: 30px 30px;
+              text-align: left;
+              border-radius: 100px;
+              margin-left: -12px;
+          }
+          .quickadd {
+              padding: 23px;
+              padding-left: 50px;
+              width: 100vw;
+              margin-top: 50px;
+              margin-left: -51px;
+          }
+          .container-lightblue {
+              background-color: #067eb656;
+              width: 80vw;
+              padding: 20px 30px;
+              text-align: center;
+              border-radius: 100px;
+              margin-left: -200px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: baseline;
+              margin-top: 50px;
+              /* text-align: center; */
+          }
+      }
+
+
+      @media only screen and (max-width: 950px) {
+
+          .container-lightblue {
+              background-color: #067eb656;
+              width: 109vw;
+              padding: 20px 30px;
+              text-align: center;
+              border-radius: 100px;
+              margin-left: -200px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: baseline;
+              margin-top: 50px;
+              /* text-align: center; */
+          }
+
+          .container-table {
+              background-color: white;
+              border-radius: 12px;
+              box-shadow: #00000054 7px 5px 1px 2px;
+              padding: 10px 20px !important;
+              width: 100%;
+          }
+
+          .bg-white {
+              width: 100vw;
+              padding: 30px 30px;
+              text-align: left;
+              border-radius: 100px;
+              margin-left: -12px;
+              margin-top: 30px;
+          }
+
+          .title-bold {
+              font-weight: 800;
+              font-size: 22px;
+          }
+
+          .three-icons{
+              display: none;
+          }
+      }
+
+
+      @media only screen and (max-width: 768px) {
+
+          .flex-guide {
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              justify-content: space-between;
+              margin: 0px 10px;
+          }
+
+          .clm-guide {
+              padding: 5px 50px;
+      
+          }
+
+          .container-lightblue {
+              background-color: #067eb656;
+              width: 106vw;
+              padding: 9px 15px;
+              text-align: center;
+              border-radius: 100px;
+              margin-left: -93px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: baseline;
+              margin-top: 50px;
+              /* text-align: center; */
+          }
+          .btn-formselectin {
+              display: flex;
+              flex-direction: row-reverse;
+              align-items: end;
+              height: 5%;
+          }
+          .center-top-container {
+              display: flex;
+              justify-content: center;
+              text-align: center;
+              align-items: center;
+              background-color: white;
+              width: 66%;
+              border-bottom-left-radius: 20px;
+              border-bottom-right-radius: 20px;
+          }
+          .nav-footer a {
+              color: white;
+              margin: 20px 6px;
+          }
+
+      }
+
+
+      @media only screen and (max-width: 430px) {
+          .container-how-it-work {
+              padding: 5px 4px;
+          }
+          .clm-guide {
+              padding: 5px 11px;
+          }
+
+          .form-container{
+              padding: 10px 10px !important;
+          }
+
+          .bold {
+              font-weight: 700;
+              font-size: 20px;
+          }
+
+          .table td, .table th {
+              padding: 2px 2px;
+              vertical-align: top;
+              text-align: left;
+              font-size: 9px;
+              border: 1px solid rgba(0, 0, 0, 0.384);
+          }
+
+          .container-lightblue-radius {
+              width: 98%;
+              align-items: center;
+              display: flex;
+              flex-direction: column;
+              padding-top: 10px;
+              justify-content: center;
+          }
+
+          .container-lightblue {
+              background-color: #067eb656;
+              width: 106vw;
+              padding: 9px 15px;
+              text-align: center;
+              border-radius: 0px;
+              margin-left: -41px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: baseline;
+              margin-top: 50px;
+          }
+
+          .flex-big-icon-with-whitebg {
+              display: flex;
+              align-items: center;
+              flex-direction: column;
+              padding: 20px 10px;
+              background-color: white;
+              justify-content: space-between;
+              border-radius: 12px;
+          }
+
+          .nav-footer {
+              display: flex;
+              justify-content: space-between;
+              color: white;
+              flex-direction: column;
+              width: 100%;
+          }
+
+          .sectionpaddingsm{
+              padding: 10px 10px  !important;
+              margin: 10px 10px !important;
+          }
+      }
+    </style>
+
+</head>
+
+<body>
+  <header>
+
+
+    <nav class="navbar navbar-expand-lg  text-white">
+
+        <a class="navbar-brand " href="#"><img src="static\images\LOGO.png" class="img-fluid logo"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"><i class="bi bi-list"></i></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link " aria-current="page" href="#Preise">About Us </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#Öffnungszeiten">Our Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#Team">Contact Us</a>
+            </li>
+
+
+          </ul>
+        </div>
+    </nav>
+
+    <div class="container heading-container-title py-2 mt-2">
+      <div class="row">
+        <div class="col-10 col-md-8 col-sm-8">
+          <h1 class="title-bold">Bias Detection Made Simple</h1>
+          <p>Swiftly pinpoint biases in articles for a clearer, transparent view of the news.</p>
+        </div>
+        <div class="col-2 col-md-4 col-sm-4 text-right"><img src="static\images\brain.png" class="img-fluid"></div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section title="how it work " class="pb-5 ">
+      <div class="container container-how-it-work">
+        <div class="row">
+          <div class="col-lg-9  col-md-12 clm-flex">
+            <h4 class="bold m-4">How It Works: A Quick <br> <span class="pt-2 blue-shade">Guide</span></h4>
+
+            <div class="flex-guide">
+              <i class="bi bi-1-circle"></i>
+              <div class="clm-guide">
+                <h5>Selecting the Article:</h5>
+                <p class="blue-shade">Begin by choosing the article you'd like to analyze. Simply upload the document,
+                  and our tool will guide you through the process.</p>
+              </div>
+            </div>
+
+            <div class="flex-guide">
+              <i class="bi bi-2-circle"></i>
+              <div class="clm-guide">
+                <h5>Changing Bias Checker Settings:</h5>
+                <p class="blue-shade">Customize the bias checker settings to tailor the analysis to your preferences.
+                  Adjust the parameters to enhance the precision of bias detection.</p>
+              </div>
+            </div>
+
+
+            <div class="flex-guide">
+              <i class="bi bi-3-circle"></i>
+              <div class="clm-guide">
+                <h5>Displaying NLP Model Results:</h5>
+                <p class="blue-shade">Witness the power of our Natural Language Processing (NLP) model. It highlights
+                  words triggering biases and provides a percentage to quantify the intensity.</p>
+              </div>
+            </div>
+
+            <div class="flex-guide">
+              <i class="bi bi-4-circle"></i>
+              <div class="clm-guide">
+                <h5>Article Modification and Save:</h5>
+                <p class="blue-shade">Take control of the narrative. If you wish to make changes to reduce bias, our
+                  tool allows you to edit the article and save it as a new file.</p>
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+          <div class="col-lg-3  col-md-12"> <img src="static\images\icn3.png" class="img-fluid three-icons"></div>
+        </div>
+      </div>
+    </section>
+    <section class="bg-light-blue ">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6 col-md-12">
+            <h3 class="bold">1. Quick Add a New Article:</h3>
+            <p>Save a new file and use it as the article for analysis. <br>Give your file a meaningful name for easy
+              reference.</p>
+              <div class="clm-flex-form">
+                <div class="container form-container py-4 px-5">
+                    <form action="/upload" method="POST" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="file" class="form-label">File:</label>
+                            <input class="form-control" type="file" id="file" name="file" required>
+                        </div>
+            
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Save As:</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Save File As" required>
+                        </div>
+            
+                        <div class="mb-3">
+                            <label for="tags" class="form-label">Input Tags:</label>
+                            <input type="text" class="form-control" id="tags" name="tags" placeholder="Select Genre" required>
+                        </div>
+            
+                        <div class="flex text-right">
+                            <button type="submit" class="btn btn-primary upload-btn">Upload File</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            >
+
+          </div>
+          <div class="col-lg-6 col-md-12">
+            <div class="bg-white">
+              <div class="container article-white-bg">
+                <h3 class="">Selecting the Article</h3>
+                <p>Begin the bias analysis process by choosing the article you'd like to analyze. You have two options
+                  to proceed:</p>
+              </div>
+            </div>
+
+            <div class="container quickadd">
+              <h3 class="bold">Select from Your Article Database:</h3>
+              <p>Pick from your pre-existing article database. Choose a saved <br> article and initiate the bias
+                analysis process.</p>
+            
+                <div class="container-table py-3">
+                  <h4>Select File:</h4>
+                  <table class="table" style="width: 100%;">
+                      <thead>
+                          <tr>
+                              <th scope="col" style="width: 60%;">Article Name</th>
+                              <th scope="col" style="width: 30%;">Genre</th>
+                              <th scope="col" style="width: 10%;">Action</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for file in files %}
+                          <tr>
+                              <td style="width: 60%;">{{ file.title }}</td>
+                              <td style="width: 30%;">{{ file.tags }}</td>
+                              <td class="text-center" style="width: 10%;">
+                                <input class="form-check-input file-radio" type="radio" name="fileRadio" id="{{ file._id }}" data-file-name="{{ file.file_path.split('/').pop() }}">
+                            </td>
+                            
+                          </tr>
+                          {% endfor %}
+                      </tbody>
+                  </table>
+                  <div class="flex text-right">
+                      <button type="button" class="btn btn-primary upload-btn" id="useBtn">Use</button>
+                  </div>
+              </div>
+              
+              
+              
+              
+              
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+    <section>
+      <div class="container-fluid my-4">
+        <div class="row ">
+          <div class="col-lg-6 ">
+            <div class="container-lightblue">
+              <div class="container-lightblue-radius ">
+
+                <h3 class="bold">Remove biased language</h3>
+                <p>Give articles a less scathing tone, priortize fairness.</p>
+              </div>
+
+            </div>
+            <div class="container-fluid  clm-flex-bias mt-5">
+              <div class="row">
+              
+
+
+                  
+                    <div class="container bg-whitepra">
+                      <h4><span class="bold">Selected Article:</span> Edited </h4>
+                      <!-- Add an id attribute to the <p> tag -->
+                      <p class="smfont" id="paraphrased" style="font-size: 18px;">bleeeeeh</p>
+                      <div class="flex pl-4 mt-4">
+                          <!-- Change the button to trigger paraphrasing -->
+                          <button id="paraphraseButton" type="button" class="btn btn-primary upload-btn">Rephrase</button>
+                          <br>
+                          <button id="summarizeButton" type="button" class="btn btn-primary">Summarize</button>
+                          <br>
+                          <button id="saveButton" class="btn btn-primary">Save Content</button>
+                          <input type="text" id="filenameInput" placeholder="Enter filename (without extension)">
+        
+                      </div>
+                  
+
+                  </div>
+                
+              </div>
+            </div>
+
+          </div>
+          <div class="col-lg-6 height-600px mt-5 px-1 border-pra bg-whitepra">
+            <h4><span class="bold">Selected Article:</span> <span id="selectedArticleTitle"></span></h4>
+            <div id="selectedArticleContent"></div>
+        </div>
+
+
+        </div>
+      </div>
+    </section>
+    <section class="bg-light-blue2">
+      <div class="container bx-center">
+        <div class="center-top-container ">
+          <h1 class="title-bold">Audio Generation</h1>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-5 col-md-6 mt-5 px-4 ">
+
+            <div class="container bg-whitepra">
+            <h4><span class="bold">Selected VOICE:</span> Text-to-Speech </h4>
+            <form id="voiceForm" class="voice-grid">
+                <div>
+                    <input type="radio" id="johnVoice" name="voice" value="john" checked>
+                    <label for="johnVoice">👨 John</label>
+                </div>
+                <div>
+                    <input type="radio" id="mattVoice" name="voice" value="matt">
+                    <label for="mattVoice">👨 Matt</label>
+                </div>
+                <div>
+                    <input type="radio" id="janeVoice" name="voice" value="jane">
+                    <label for="janeVoice">👩 Jane</label>
+                </div>
+                <div>
+                    <input type="radio" id="jennyVoice" name="voice" value="jenny">
+                    <label for="jennyVoice">👩 Jenny</label>
+                </div>
+            </form>
+            <button id="generateAudioBtn" class="btn btn-primary">Generate Audio</button>
+        </div>
+
+       
+
+          
+
+        </div>
+      </div>
+
+      </div>
+    </section>
+   
+  </main>
+<footer class="bgdark">
+<img src="static\images\LOGO White.png"  class="img-fluid">
+<div class="nav-footer">
+
+ <a href="" > About us</a>
+  <a href="">Our Services</a>
+  <a href="">Contact Us</a>
+  <a href="">Learn More</a>
+</div> 
+<div class="container-fluid text-white footer-flex">
+  <p><i class="bi bi-c-circle"></i>2024 ByteNews Podcast Automation. All Rights Reserved</p>
+  <div class="container-social"><i class="bi bi-twitter"></i><i class="bi bi-whatsapp"></i><i class="bi bi-facebook"></i><i class="bi bi-instagram"></i></div>
+</div>
+</footer>
+
+</body>
+<!-- <script src="/js/bootstrap.bundle.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const useButton = document.getElementById('useBtn');
+        useButton.addEventListener('click', function() {
+            const selectedRadio = document.querySelector('input[name="fileRadio"]:checked');
+            if (selectedRadio) {
+                const fileName = selectedRadio.getAttribute('data-file-name');
+                const filePath = `${fileName}`; // Adjusted file path construction
+                console.log('File name:', fileName);
+                console.log('File path:', filePath); // Added console log to check file path
+                // Get the article title from the correct element
+                const articleTitle = selectedRadio.parentElement.parentElement.querySelector('td:nth-child(1)').textContent.trim();
+                document.getElementById('selectedArticleTitle').textContent = articleTitle;
+                fetch(filePath)
+                    .then(response => response.text())
+                    .then(data => {
+                        // Update the content of selectedArticleContent
+                        document.getElementById('selectedArticleContent').textContent = data;
+                        // Store the content in localStorage
+                        localStorage.setItem('selectedArticleContent', data);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching file:', error);
+                    });
+            } else {
+                alert('Please select a file.');
+            }
+        });
+
+        // Check if content exists in localStorage on page load
+        const storedContent = localStorage.getItem('selectedArticleContent');
+        if (storedContent) {
+            // If content exists, display it
+            document.getElementById('selectedArticleContent').textContent = storedContent;
+        }
+    });
+</script>
+
+<script>
+  // Get the button element
+  const paraphraseButton = document.getElementById('paraphraseButton');
+
+  // Add a click event listener to the button
+  paraphraseButton.addEventListener('click', () => {
+      // Get the article content from localStorage
+      const articleContent = localStorage.getItem('selectedArticleContent');
+  
+      console.log('Original Article Content:', articleContent);
+  
+      // Call the function to paraphrase the article
+      paraphraseArticle(articleContent);
+  });
+  
+  // Function to paraphrase the article
+  function paraphraseArticle(content) {
+      // Send a POST request to the Flask route
+      fetch('/paraphrase', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              selectedArticleContent: content // Send the content as selectedArticleContent
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+          // Update the HTML with the paraphrased text
+          document.getElementById('paraphrased').textContent = data.Article;
+      })
+      .catch(error => {
+          console.error('Error paraphrasing article:', error);
+      });
+  }
+</script>
+
+<script>
+  // Function to save paraphrased content
+  function saveParaphrasedContent(paraphrasedContent, filename) {
+      // Append "unbiased_" as a prefix to the filename
+      const prefixedFilename = `unbiased_${filename}.txt`;
+
+      // Create a new Blob object containing the paraphrased content
+      const blob = new Blob([paraphrasedContent], { type: 'text/plain' });
+
+      // Create a link element
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+
+      // Set the download attribute with the specified filename
+      link.download = prefixedFilename;
+
+      // Append the link to the document body and trigger a click event to start the download
+      document.body.appendChild(link);
+      console.log('Saving...');
+      link.click();
+
+      // Remove the link from the document body
+      document.body.removeChild(link);
+  }
+
+  // Add event listener to the saveButton
+  const saveButton = document.getElementById('saveButton');
+  saveButton.addEventListener('click', () => {
+      // Get the paraphrased content and filename
+      const paraphrasedContent = document.getElementById('paraphrased').textContent;
+      const filename = document.getElementById('filenameInput').value;
+
+      // Check if filename is provided
+      if (filename.trim() === '') {
+          alert('Please enter a filename.');
+          return;
+      }
+
+      // Call the function to save the paraphrased content
+      saveParaphrasedContent(paraphrasedContent, filename);
+      console.log('Paraphrased content saved.');
+  });
+</script>
+
+
+<script>
+  // Get the summarize button element
+  const summarizeButton = document.getElementById('summarizeButton');
+
+  // Add a click event listener to the summarize button
+  summarizeButton.addEventListener('click', () => {
+      // Get the paraphrased text
+      const paraphrasedText = document.getElementById('paraphrased').textContent;
+      
+      // Call the function to summarize the text
+      summarizeText(paraphrasedText);
+  });
+
+  // Function to summarize the text
+  function summarizeText(text) {
+      // Send a POST request to the Flask route
+      fetch('/summarize', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              text: text
+          })
+      })
+      .then(response => response.json())
+      .then(data => {
+          // Replace the paraphrased text with the summarized text
+          document.getElementById('paraphrased').textContent = data.summary;
+      })
+      .catch(error => {
+          console.error('Error summarizing text:', error);
+      });
+  }
+</script>
+
+</body>
+
+</html>
