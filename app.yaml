@@ -1,0 +1,12 @@
+runtime: python311
+entrypoint: gunicorn -b :$PORT app:app
+
+env_variables:
+  MONGO_URI: 'mongodb+srv://321user:312@312-test.zab2dcq.mongodb.net/?retryWrites=true&w=majority&appName=312-test'
+
+handlers:
+- url: /static
+  static_dir: static/
+
+- url: /api/users/register
+  script: aut
